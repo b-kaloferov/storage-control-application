@@ -16,6 +16,6 @@ namespace DataLayer
 
         Task UpdateAsync(T entity, bool useNavigationalProperties = false);
 
-        Task<T> DeleteAsync(K key);
+        Task DeleteAsync(K key);
     }
 }

@@ -17,13 +17,7 @@ namespace BusinessLayer
         public int Quantity { get; set; }
 
         [Required]
-        public Order Order { get; set; }
-
-        [ForeignKey("Order")] 
-        public int OrderId { get; set; }
-
-        [Required]
-        public Order Shoe { get; set; }
+        public Shoe Shoe { get; set; }
 
         [ForeignKey("Shoe")]
         public int ShoeId { get; set; }
@@ -33,11 +27,11 @@ namespace BusinessLayer
 
         }
 
-        public OrderDetail(int quantity, Order order, Order shoe)
+        // f(x) = x + 1
+
+        public OrderDetail(int quantity,  Shoe shoe)
         {
             Quantity = quantity;
-            Order = order;
-            OrderId = order.Id;
             Shoe = shoe;
             ShoeId = shoe.Id;
         }

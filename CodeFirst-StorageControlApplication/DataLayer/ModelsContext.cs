@@ -46,14 +46,7 @@ namespace DataLayer
                     query = query.AsNoTrackingWithIdentityResolution();
                 }
 
-                Model model =  await query.SingleOrDefaultAsync(e => e.Id == key);
-
-                if (model is null) 
-                {
-                    throw new KeyNotFoundException($"Model with id {key} not found.");
-                }
-
-                return model;
+                return await query.SingleOrDefaultAsync(e => e.Id == key);
             }
             catch (Exception ex)
             {

@@ -57,14 +57,7 @@ namespace DataLayer
                     query = query.AsNoTrackingWithIdentityResolution();
                 }
 
-                Shoe shoe = await query.SingleOrDefaultAsync(t => t.Id == key);
-            
-                if (shoe is null)
-                {
-                    throw new KeyNotFoundException($"Shoe with id {key} not found.");
-                }
-
-                return shoe;
+                return await query.SingleOrDefaultAsync(t => t.Id == key);
             }
             catch (Exception ex)
             {

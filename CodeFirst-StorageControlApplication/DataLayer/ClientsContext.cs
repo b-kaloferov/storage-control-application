@@ -26,10 +26,10 @@ namespace DataLayer
                 _storageDbContext.Clients.Add(entity);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception($"An error occurred while creating a client entity.", ex);
             }
         }
 
@@ -51,10 +51,10 @@ namespace DataLayer
 
                 return await query.SingleOrDefaultAsync(e => e.Id == key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception($"An error occurred while reading the client entity.", ex);
             }
         }
         
@@ -76,10 +76,10 @@ namespace DataLayer
 
                 return await query.ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception($"An error occurred while reading all client entities.", ex);
             }
         }
 
@@ -91,17 +91,17 @@ namespace DataLayer
 
                 if (clientFromDb is null)
                 {
-                    throw new ArgumentException("Client with id = " + entity.Id + "does not exist!");
+                    throw new KeyNotFoundException($"Client with id {entity.Id} not found.");
                 }
 
                 _storageDbContext.Entry(clientFromDb).CurrentValues.SetValues(entity);
 
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception($"An error occurred while updating the client entity.", ex);
             }
         }
         
@@ -119,10 +119,10 @@ namespace DataLayer
                 _storageDbContext.Clients.Remove(clientFromDb);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception($"An error occurred while deleting the client entity.", ex);
             }
         }
     }

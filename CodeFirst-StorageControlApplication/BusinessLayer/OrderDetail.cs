@@ -27,8 +27,6 @@ namespace BusinessLayer
 
         }
 
-        // f(x) = x + 1
-
         public OrderDetail(int quantity,  Shoe shoe)
         {
             Quantity = quantity;

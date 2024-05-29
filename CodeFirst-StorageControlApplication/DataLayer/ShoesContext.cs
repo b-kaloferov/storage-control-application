@@ -34,10 +34,10 @@ namespace DataLayer
                 _storageDbContext.Shoes.Add(entity);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while creating a shoe entity.", ex);
             }
         }
 
@@ -57,13 +57,19 @@ namespace DataLayer
                     query = query.AsNoTrackingWithIdentityResolution();
                 }
 
-                return await query.SingleOrDefaultAsync(t => t.Id == key);
+                Shoe shoe = await query.SingleOrDefaultAsync(t => t.Id == key);
             
+                if (shoe is null)
+                {
+                    throw new KeyNotFoundException($"Shoe with id {key} not found.");
+                }
+
+                return shoe;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while reading the shoe entity.", ex);
             }
         }
         public async Task<List<Shoe>> ReadAllAsync(bool useNavigationalProperties = false, bool isReadOnly = true)
@@ -84,10 +90,10 @@ namespace DataLayer
 
                 return await query.ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while reading all shoe entities.", ex);
             }
         }
 
@@ -96,6 +102,11 @@ namespace DataLayer
             try
             {
                 Shoe shoeFromDB = await ReadAsync(entity.Id, useNavigationalProperties, false);
+
+                if (shoeFromDB is null)
+                {
+                    throw new KeyNotFoundException($"Shoe with id {entity.Id} not found.");
+                }
 
                 _storageDbContext.Entry(shoeFromDB).CurrentValues.SetValues(entity);
 
@@ -115,10 +126,10 @@ namespace DataLayer
 
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while updating the shoe entity.", ex);
             }
         }
         
@@ -136,10 +147,10 @@ namespace DataLayer
                 _storageDbContext.Shoes.Remove(shoeFromDb);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while deleting the shoe entity.", ex);
             }
         }
     }

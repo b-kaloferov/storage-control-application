@@ -38,9 +38,9 @@ namespace DataLayer
                 _storageDbContext.Orders.Add(entity);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new NotImplementedException();
+                throw new Exception("An error occurred while creating an order entity.", ex);
             }
             
         }
@@ -64,10 +64,10 @@ namespace DataLayer
                 return await query.SingleOrDefaultAsync(t => t.Id == key);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while reading the order entity.", ex);
             }
         }
 
@@ -90,10 +90,10 @@ namespace DataLayer
                 return await query.ToListAsync();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while reading all order entities.", ex);
             }
         }
 
@@ -132,10 +132,10 @@ namespace DataLayer
 
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while updating the order entity.", ex);
             }
         }
 
@@ -153,10 +153,10 @@ namespace DataLayer
                 _storageDbContext.Orders.Remove(orderFromDb);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while deleting the order entity.", ex);
             }
         }
     }

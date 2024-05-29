@@ -23,10 +23,10 @@ namespace DataLayer
                 _storageDbContext.Models.Add(entity);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while creating a model entity.", ex);
             }
         }
 
@@ -46,12 +46,19 @@ namespace DataLayer
                     query = query.AsNoTrackingWithIdentityResolution();
                 }
 
-                return await query.SingleOrDefaultAsync(e => e.Id == key);
+                Model model =  await query.SingleOrDefaultAsync(e => e.Id == key);
+
+                if (model is null) 
+                {
+                    throw new KeyNotFoundException($"Model with id {key} not found.");
+                }
+
+                return model;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while reading the model entity.", ex);
             }
         }
 
@@ -73,9 +80,10 @@ namespace DataLayer
 
                 return await query.ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+
+                throw new Exception("An error occurred while reading all model entities.", ex);
             }
         }
 
@@ -87,17 +95,17 @@ namespace DataLayer
 
                 if (modelFromDb is null)
                 {
-                    throw new ArgumentException("Model with id = " + entity.Id + "does not exist!");
+                    throw new KeyNotFoundException($"Model with id {entity.Id} not found.");
                 }
 
                 _storageDbContext.Entry(modelFromDb).CurrentValues.SetValues(entity);
 
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while updating the model entity.", ex);
             }
         }
 
@@ -115,10 +123,10 @@ namespace DataLayer
                 _storageDbContext.Models.Remove(modelFromDb);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while deleting the model entity.", ex);
             }
         }
     }

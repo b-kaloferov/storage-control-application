@@ -103,6 +103,11 @@ namespace DataLayer
             {
                 Order orderFromDB = await ReadAsync(entity.Id, useNavigationalProperties, false);
 
+                if (orderFromDB is null)
+                {
+                    throw new KeyNotFoundException($"Order with id {entity.Id} not found.");
+                }
+
                 _storageDbContext.Entry(orderFromDB).CurrentValues.SetValues(entity);
 
                 if (useNavigationalProperties)

@@ -33,10 +33,10 @@ namespace DataLayer
                 _storageDbContext.OrderDetails.Add(entity);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while creating an order detail entity.", ex);
             }
         }
 
@@ -59,10 +59,10 @@ namespace DataLayer
                 return await query.SingleOrDefaultAsync(t => t.Id == key);
 
             }
-            catch (Exception)
-            {
+            catch (Exception ex) 
+            { 
 
-                throw;
+                throw new Exception("An error occurred while reading the order detail entity.", ex); 
             }
         }
 
@@ -84,11 +84,11 @@ namespace DataLayer
 
                 return await query.ToListAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
-            };
+                throw new Exception("An error occurred while reading all order detail entities.", ex);
+            }
         }
 
         public async Task UpdateAsync(OrderDetail entity, bool useNavigationalProperties = false)
@@ -96,6 +96,11 @@ namespace DataLayer
             try
             {
                 OrderDetail orderDetailFromDB = await ReadAsync(entity.Id, useNavigationalProperties, false);
+
+                if (orderDetailFromDB is null)
+                {
+                    throw new KeyNotFoundException($"Order detail with id {entity.Id} not found.");
+                }
 
                 _storageDbContext.Entry(orderDetailFromDB).CurrentValues.SetValues(entity);
 
@@ -115,10 +120,10 @@ namespace DataLayer
 
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while updating the order detail entity.", ex);
             }
         }
 
@@ -136,10 +141,10 @@ namespace DataLayer
                 _storageDbContext.OrderDetails.Remove(orderDetailFromDb);
                 await _storageDbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception("An error occurred while deleting the order detail entity.", ex);
             }
         }
     }

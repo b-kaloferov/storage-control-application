@@ -90,5 +90,26 @@ namespace BusinessLayer
             GenderCategory = genderCategory;
             Shoes = shoes;
         }
+
+        public Model(string brand, string code, string shoeType, decimal price, string genderCategory, string description) : this()
+        {
+            Brand = brand;
+            Code = code;
+            ShoeType = shoeType;
+            Price = price;
+            GenderCategory = genderCategory;
+            Description = description;
+        }
+
+        public Model(string brand, string code, string shoeType, decimal price, string genderCategory, string description, List<Shoe> shoes)
+        {
+            Brand = brand;
+            Code = code;
+            ShoeType = shoeType;
+            Price = price;
+            GenderCategory = genderCategory;
+            Description = description;
+            Shoes = shoes;
+        }
     }
 }

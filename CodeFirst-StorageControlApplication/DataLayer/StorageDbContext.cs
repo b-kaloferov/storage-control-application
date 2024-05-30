@@ -22,9 +22,10 @@ namespace DataLayer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=LAPTOP-UNHGGLSQ\\SQLEXPRESS;Database=StorageDb;Trusted_Connection=True;TrustServerCertificate=True;");
-
-            base.OnConfiguring(optionsBuilder);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=LAPTOP-UNHGGLSQ\\SQLEXPRESS;Database=StorageDb;Trusted_Connection=True;TrustServerCertificate=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

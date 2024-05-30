@@ -130,7 +130,7 @@ namespace DataLayer
         {
             try
             {
-                Shoe shoeFromDb = await ReadAsync(key);
+                Shoe shoeFromDb = await ReadAsync(key, false, false);
 
                 if (shoeFromDb is null)
                 {

@@ -131,7 +131,7 @@ namespace DataLayer
         {
             try
             {
-                OrderDetail orderDetailFromDb = await ReadAsync(key);
+                OrderDetail orderDetailFromDb = await ReadAsync(key, false, false);
 
                 if (orderDetailFromDb is null)
                 {

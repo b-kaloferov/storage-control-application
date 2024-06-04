@@ -148,12 +148,15 @@ namespace DataLayer
         {
             try
             {
-                Order orderFromDb = await ReadAsync(key);
+                Order orderFromDb = await ReadAsync(key, false, false);
 
                 if (orderFromDb is null)
                 {
                     throw new ArgumentException("Order with id " + key + " does not exist in the database!");
                 }
+
+                //за да се избегнат грешки, свързани с entity tracking, трябва да се уверим, че изтритата инстанция не се прикачва по повече от един начин в контекста
+                //_storageDbContext.Entry(orderFromDb).State = EntityState.Detached;
 
                 _storageDbContext.Orders.Remove(orderFromDb);
                 await _storageDbContext.SaveChangesAsync();

@@ -78,7 +78,7 @@ namespace NUnitTestingLayer
         }
 
         [Test]
-        public async Task ReadAllAsync_ShouldReturnAllShoesFromDatabase()
+        public async Task ReadAllAsync_ShouldReturnAllOrdersFromDatabase()
         {
             // Arrange
             var client = new Client("TestClient", "TestAddress", "testemail@test.com", "+123-654-321-098");
@@ -104,7 +104,7 @@ namespace NUnitTestingLayer
         }
 
         [Test]
-        public async Task UpdateAsync_ShouldUpdateShoeInDatabase()
+        public async Task UpdateAsync_ShouldUpdateOrderInDatabase()
         {
             // Arrange
             var client = new Client("TestClient", "TestAddress", "testemail@test.com", "+123-654-321-098");
@@ -136,7 +136,7 @@ namespace NUnitTestingLayer
         }
 
         [Test]
-        public async Task DeleteAsync_ShouldRemoveShoeFromDatabase()
+        public async Task DeleteAsync_ShouldRemoveOrderFromDatabase()
         {
             // Arrange
             var client = new Client("TestClient", "TestAddress", "testemail@test.com", "+123-654-321-098");

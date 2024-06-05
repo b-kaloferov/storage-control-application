@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PresentationLayer
+﻿namespace ConsoleUserInterface
 {
     internal class Program
     {
@@ -13,14 +11,14 @@ namespace PresentationLayer
                 Console.Clear();
                 DrawMenu();
 
-                Console.Write("╔═══════════════════════════════════════╗\n");
-                Console.Write("║ Select an option:                     ║");
-                Console.SetCursorPosition(Console.CursorLeft - 21, Console.CursorTop); // Move cursor to correct position
+                Console.Write("╔═════════════════════════════════════════════╗\n");
+                Console.Write("║ Select an option:                           ║");
+                Console.SetCursorPosition(Console.CursorLeft - 27, Console.CursorTop); // Move cursor to correct position
                 Console.ForegroundColor = ConsoleColor.Blue; // sets the color to blue
 
                 string choice = Console.ReadLine();
                 Console.ResetColor(); // sets the color back to white
-                Console.WriteLine("╚═══════════════════════════════════════╝");
+                Console.WriteLine("╚═════════════════════════════════════════════╝");
 
                 Console.Clear();
                 DrawMenu(choice);
@@ -94,10 +92,10 @@ namespace PresentationLayer
         /// <param name="selectedOption"></param>
         static void DrawMenu(string selectedOption = null)
         {
-            Console.WriteLine("╔═══════════════════════════════════════╗");
-            Console.WriteLine("║      Storage Control Application      ║");
-            Console.WriteLine("╚═══════════════════════════════════════╝");
-            Console.WriteLine("╔═══════════════════════════════════════╗");
+            Console.WriteLine("╔═════════════════════════════════════════════╗");
+            Console.WriteLine("║         Storage Control Application         ║");
+            Console.WriteLine("╚═════════════════════════════════════════════╝");
+            Console.WriteLine("╔═════════════════════════════════════════════╗");
 
             // Options are stored in an array for easier access
             string[] options = {
@@ -117,21 +115,21 @@ namespace PresentationLayer
             foreach (var option in options)
             {
                 // Checks if the current option is chosen
-                if (option.StartsWith(selectedOption + ".")) 
+                if (option.StartsWith(selectedOption + "."))
                 {
                     Console.Write("║ ");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Write(option);
                     Console.ResetColor();
-                    Console.WriteLine("".PadRight(37 - option.Length) + " ║"); // Adds the necessary number of spaces
+                    Console.WriteLine("".PadRight(43 - option.Length) + " ║"); // Adds the necessary number of spaces
                 }
                 else
                 {
-                    Console.WriteLine($"║ {option.PadRight(37)} ║");
+                    Console.WriteLine($"║ {option.PadRight(43)} ║");
                 }
             }
 
-            Console.WriteLine("╚═══════════════════════════════════════╝");
+            Console.WriteLine("╚═════════════════════════════════════════════╝");
         }
 
         /// <summary>
@@ -140,9 +138,9 @@ namespace PresentationLayer
         /// <param name="message"></param>
         static void PrintOption(string message)
         {
-            Console.WriteLine("╔═══════════════════════════════════════╗");
-            Console.WriteLine($"║ {message.PadRight(37)} ║");
-            Console.WriteLine("╚═══════════════════════════════════════╝");
+            Console.WriteLine("╔═════════════════════════════════════════════╗");
+            Console.WriteLine($"║ {message.PadRight(43)} ║");
+            Console.WriteLine("╚═════════════════════════════════════════════╝");
         }
     }
 }

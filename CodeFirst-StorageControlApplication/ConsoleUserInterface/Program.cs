@@ -28,43 +28,43 @@
                 {
                     case "1":
                         PrintOption("Add New Shoe Model selected.");
-                        // StorageManager.AddShoeModel();
+                        // StorageConsoleManager.AddShoeModel();
                         break;
                     case "2":
                         PrintOption("View Available Shoe Models selected.");
-                        // StorageManager.ViewAvailableShoeModels();
+                        // StorageConsoleManager.ViewAvailableShoeModels();
                         break;
                     case "3":
                         PrintOption("Update a Shoe Model selected.");
-                        // StorageManager.UpdateShoeModel();
+                        // StorageConsoleManager.UpdateShoeModel();
                         break;
                     case "4":
                         PrintOption("Remove a Shoe Model selected.");
-                        // StorageManager.RemoveShoeModel();
+                        // StorageConsoleManager.RemoveShoeModel();
                         break;
                     case "5":
                         PrintOption("Add Shoes selected.");
-                        // StorageManager.AddShoes();
+                        // StorageConsoleManager.AddShoes();
                         break;
                     case "6":
                         PrintOption("View Shoes of a Particular Model selected.");
-                        // StorageManager.ViewShoesOfParticularModel();
+                        // StorageConsoleManager.ViewShoesOfParticularModel();
                         break;
                     case "7":
                         PrintOption("Manage Customers selected.");
-                        // StorageManager.ManageCustomers();
+                        // StorageConsoleManager.ManageCustomers();
                         break;
                     case "8":
                         PrintOption("Make a Purchase selected.");
-                        // StorageManager.MakePurchase();
+                        // StorageConsoleManager.MakePurchase();
                         break;
                     case "9":
                         PrintOption("View Purchase History selected.");
-                        // StorageManager.ViewPurchaseHistory();
+                        // StorageConsoleManager.ViewPurchaseHistory();
                         break;
                     case "10":
                         PrintOption("Discard Shoes selected.");
-                        // StorageManager.DiscardShoes();
+                        // StorageConsoleManager.DiscardShoes();
                         break;
                     case "0":
                         PrintOption("Exiting the program...");

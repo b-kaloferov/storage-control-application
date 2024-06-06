@@ -22,16 +22,24 @@ namespace BusinessLayer
         [ForeignKey("Shoe")]
         public int ShoeId { get; set; }
 
+        [Required]
+        public Order Order { get; set; }
+
+        [ForeignKey("Order")]
+        public int OrderId { get; set; }
+
         private OrderDetail()
         {
 
         }
 
-        public OrderDetail(int quantity,  Shoe shoe)
+        public OrderDetail(int quantity,  Shoe shoe, Order order)
         {
             Quantity = quantity;
             Shoe = shoe;
             ShoeId = shoe.Id;
+            Order = order;
+            OrderId = order.Id;
         }
     }
 }

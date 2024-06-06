@@ -21,24 +21,27 @@ namespace BusinessLayer
         [ForeignKey("Client")]
         public int ClientId { get; set; }
 
-        [Required]
-        public OrderDetail OrderDetail { get; set; }
-
-        [ForeignKey("OrderDetail")]
-        public int OrderDetailId { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
 
         private Order() 
         {
-
+            OrderDetails = new List<OrderDetail>();
         }
 
-        public Order(DateTime orderDate, Client client, OrderDetail orderDetail)
+        public Order(DateTime orderDate, Client client) : this()
         {
             OrderDate = orderDate;
             Client = client;
             ClientId = client.Id;
-            OrderDetail = orderDetail;
-            OrderDetailId = orderDetail.Id;
         }
+
+        public Order(DateTime orderDate, Client client, List<OrderDetail> orderDetails)
+        {
+            OrderDate = orderDate;
+            Client = client;
+            ClientId = client.Id;
+            OrderDetails = orderDetails;
+        }
+
     }
 }

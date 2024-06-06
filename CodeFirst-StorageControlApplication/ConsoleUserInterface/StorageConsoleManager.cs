@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ServiceLayer;
 
 namespace ConsoleUserInterface
 {
@@ -80,7 +81,7 @@ namespace ConsoleUserInterface
                 Console.Write("Enter the quantity of shoes to discard: ");
                 if (int.TryParse(Console.ReadLine(), out int quantity))
                 {
-                    await _shoeService.DiscardShoesAsync(modelId, quantity);
+                    //await _shoesContext.DiscardShoesAsync(modelId, quantity);
                     Console.WriteLine($"{quantity} shoes of Model ID {modelId} have been discarded.");
                 }
                 else

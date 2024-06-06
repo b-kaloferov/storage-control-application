@@ -29,12 +29,24 @@ namespace DataLayer
                     entity.Client = clientFromDb;
                 }
 
-                OrderDetail orderDetailFromDb = _storageDbContext.OrderDetails.Find(entity.OrderDetail.Id);
+                List<OrderDetail> orderDetails = new List<OrderDetail>();
 
-                if (orderDetailFromDb is not null)
+                foreach (var item in entity.OrderDetails)
                 {
-                    entity.OrderDetail = orderDetailFromDb;
+                    OrderDetail orderDetailFromDb = _storageDbContext.OrderDetails.Find(item.Id);
+
+                    if (orderDetailFromDb is not null)
+                    {
+                        orderDetails.Add(orderDetailFromDb);
+                    }
+                    else
+                    {
+                        orderDetails.Add(item);
+                    }
                 }
+
+                entity.OrderDetails = orderDetails;
+
                 _storageDbContext.Orders.Add(entity);
                 await _storageDbContext.SaveChangesAsync();
             }
@@ -53,7 +65,7 @@ namespace DataLayer
 
                 if (useNavigationalProperties)
                 {
-                    query = query.Include(t => t.Client).Include(p => p.OrderDetail);
+                    query = query.Include(t => t.Client).Include(p => p.OrderDetails);
                 }
 
                 if (isReadOnly)
@@ -79,7 +91,7 @@ namespace DataLayer
 
                 if (useNavigationalProperties)
                 {
-                    query = query.Include(t => t.Client).Include(p => p.OrderDetail);
+                    query = query.Include(t => t.Client).Include(p => p.OrderDetails);
                 }
 
                 if (isReadOnly)
@@ -101,14 +113,14 @@ namespace DataLayer
         {
             try
             {
-                Order orderFromDB = await ReadAsync(entity.Id, useNavigationalProperties, false);
+                Order orderFromDb = await ReadAsync(entity.Id, useNavigationalProperties, false);
 
-                if (orderFromDB is null)
+                if (orderFromDb is null)
                 {
                     throw new KeyNotFoundException($"Order with id {entity.Id} not found.");
                 }
 
-                _storageDbContext.Entry(orderFromDB).CurrentValues.SetValues(entity);
+                _storageDbContext.Entry(orderFromDb).CurrentValues.SetValues(entity);
 
                 if (useNavigationalProperties)
                 {
@@ -116,23 +128,30 @@ namespace DataLayer
 
                     if (clientFromDb is not null)
                     {
-                        orderFromDB.Client = clientFromDb;
+                        orderFromDb.Client = clientFromDb;
                     }
                     else
                     {
-                        orderFromDB.Client = entity.Client;
+                        orderFromDb.Client = entity.Client;
                     }
 
-                    OrderDetail orderDetailFromDB = _storageDbContext.OrderDetails.Find(entity.OrderDetail.Id);
+                    List<OrderDetail> orderDetails = new List<OrderDetail>();
 
-                    if (orderDetailFromDB is not null)
+                    foreach (var item in entity.OrderDetails)
                     {
-                        orderFromDB.OrderDetail = orderDetailFromDB;
+                        OrderDetail orderDetailFromDb = _storageDbContext.OrderDetails.Find(item.Id);
+
+                        if (orderDetailFromDb is not null)
+                        {
+                            orderDetails.Add(orderDetailFromDb);
+                        }
+                        else
+                        {
+                            orderDetails.Add(item);
+                        }
                     }
-                    else
-                    {
-                        orderFromDB.OrderDetail = entity.OrderDetail;
-                    }
+
+                    orderFromDb.OrderDetails = orderDetails;
                 }
 
                 await _storageDbContext.SaveChangesAsync();

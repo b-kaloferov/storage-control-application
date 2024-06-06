@@ -20,8 +20,26 @@ namespace DataLayer
         {
             try
             {
+               List<Shoe> shoes = new List<Shoe>();
+
+                foreach (var item in entity.Shoes)
+                {
+                    Shoe shoeFromDb = _storageDbContext.Shoes.Find(item.Id);
+
+                    if (shoeFromDb is not null)
+                    {
+                        shoes.Add(shoeFromDb);
+                    }
+                    else
+                    {
+                        shoes.Add(item);
+                    }
+                }
+
+                entity.Shoes = shoes;
+
                 _storageDbContext.Models.Add(entity);
-                await _storageDbContext.SaveChangesAsync();
+                _storageDbContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -92,6 +110,24 @@ namespace DataLayer
                 }
 
                 _storageDbContext.Entry(modelFromDb).CurrentValues.SetValues(entity);
+
+                List<Shoe> shoes = new List<Shoe>();
+
+                foreach (var item in entity.Shoes)
+                {
+                    Shoe shoeFromDb = _storageDbContext.Shoes.Find(item.Id);
+
+                    if (shoeFromDb is not null)
+                    {
+                        shoes.Add(shoeFromDb);
+                    }
+                    else
+                    {
+                        shoes.Add(item);
+                    }
+                }
+
+                modelFromDb.Shoes = shoes;
 
                 await _storageDbContext.SaveChangesAsync();
             }

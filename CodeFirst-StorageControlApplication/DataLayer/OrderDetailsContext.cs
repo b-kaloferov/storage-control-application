@@ -30,6 +30,13 @@ namespace DataLayer
                     entity.Shoe = shoeFromDB;
                 }
 
+                Order orderFromDB = _storageDbContext.Orders.Find(entity.Order.Id);
+
+                if (orderFromDB is not null)
+                {
+                    entity.Order = orderFromDB;
+                }
+
                 _storageDbContext.OrderDetails.Add(entity);
                 await _storageDbContext.SaveChangesAsync();
             }
@@ -48,7 +55,7 @@ namespace DataLayer
 
                 if (useNavigationalProperties)
                 {
-                    query = query.Include(t => t.Shoe);
+                    query = query.Include(t => t.Shoe).Include(t => t.Order);
                 }
 
                 if (isReadOnly)
@@ -74,7 +81,7 @@ namespace DataLayer
 
                 if (useNavigationalProperties)
                 {
-                    query = query.Include(t => t.Shoe);
+                    query = query.Include(t => t.Shoe).Include(t => t.Order);
                 }
 
                 if (isReadOnly)
@@ -115,6 +122,17 @@ namespace DataLayer
                     else
                     {
                         orderDetailFromDB.Shoe = entity.Shoe;
+                    }
+
+                    Order orderFromDb = _storageDbContext.Orders.Find(entity.Order.Id);
+
+                    if (orderFromDb is not null)
+                    {
+                        orderDetailFromDB.Order = orderFromDb;
+                    }
+                    else
+                    {
+                        orderDetailFromDB.Order = entity.Order;
                     }
                 }
 

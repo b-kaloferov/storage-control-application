@@ -23,8 +23,26 @@ namespace DataLayer
         {
             try
             {
+                List<Order> orders = new List<Order>();
+
+                foreach (var item in entity.Orders)
+                {
+                    Order orderFromDb = _storageDbContext.Orders.Find(item.Id);
+
+                    if (orderFromDb is not null)
+                    {
+                        orders.Add(orderFromDb);
+                    }
+                    else
+                    {
+                        orders.Add(item);
+                    }
+                }
+
+                entity.Orders = orders;
+
                 _storageDbContext.Clients.Add(entity);
-                await _storageDbContext.SaveChangesAsync();
+                _storageDbContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -93,9 +111,26 @@ namespace DataLayer
                 {
                     throw new KeyNotFoundException($"Client with id {entity.Id} not found.");
                 }
-
+                
                 _storageDbContext.Entry(clientFromDb).CurrentValues.SetValues(entity);
 
+                List<Order> orders = new List<Order>();
+
+                foreach (var item in entity.Orders)
+                {
+                    Order orderFromDb = _storageDbContext.Orders.Find(item.Id);
+
+                    if (orderFromDb is not null)
+                    {
+                        orders.Add(orderFromDb);
+                    }
+                    else
+                    {
+                        orders.Add(item);
+                    }
+                }
+
+                clientFromDb.Orders = orders;
                 await _storageDbContext.SaveChangesAsync();
             }
             catch (Exception ex)

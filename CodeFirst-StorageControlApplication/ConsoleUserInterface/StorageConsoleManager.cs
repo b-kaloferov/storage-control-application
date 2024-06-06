@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -71,11 +72,26 @@ namespace ConsoleUserInterface
             // Implementation details here
         }
 
-        public static void DiscardShoes()
+        public static async Task DiscardShoes()
         {
-            // Code to discard shoes
-            Console.WriteLine("Discarding shoes...");
-            // Implementation details here
+            Console.Write("Enter the Model ID of the shoes to discard: ");
+            if (int.TryParse(Console.ReadLine(), out int modelId))
+            {
+                Console.Write("Enter the quantity of shoes to discard: ");
+                if (int.TryParse(Console.ReadLine(), out int quantity))
+                {
+                    await _shoeService.DiscardShoesAsync(modelId, quantity);
+                    Console.WriteLine($"{quantity} shoes of Model ID {modelId} have been discarded.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid quantity.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid Model ID.");
+            }
         }
     }
 }

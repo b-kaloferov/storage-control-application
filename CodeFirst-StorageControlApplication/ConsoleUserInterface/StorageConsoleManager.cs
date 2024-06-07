@@ -94,25 +94,140 @@ namespace ConsoleUserInterface
             Console.WriteLine("Shoe model added successfully.");
         }
 
-        public static void ViewAvailableShoeModels()
+        public async static void ViewAvailableShoeModels()
         {
-            // Code to view available shoe models
-            Console.WriteLine("Viewing available shoe models...");
-            // Implementation details here
+            var availableModels = await _modelService.GetAllModelsAsync();
+
+            Console.WriteLine("Available Shoe Models:");
+            foreach (var model in availableModels)
+            {
+                Console.WriteLine($"ID: {model.Id}, Brand: {model.Brand}, Code: {model.Code}, Shoe Type: {model.ShoeType}, Price: {model.Price}");
+            }
         }
 
-        public static void UpdateShoeModel()
+        public async static void UpdateShoeModel()
         {
-            // Code to update a shoe model
-            Console.WriteLine("Updating a shoe model...");
-            // Implementation details here
+            Console.Write("Enter the ID of the shoe model to update: ");
+            if (int.TryParse(Console.ReadLine(), out int modelId))
+            {
+                var modelToUpdate = await _modelService.GetModelByIdAsync(modelId);
+
+                if (modelToUpdate != null)
+                {
+                    Console.WriteLine("Current details of the shoe model:");
+                    Console.WriteLine($"ID: {modelToUpdate.Id}");
+                    Console.WriteLine($"Brand: {modelToUpdate.Brand}");
+                    Console.WriteLine($"Code: {modelToUpdate.Code}");
+                    Console.WriteLine($"Shoe Type: {modelToUpdate.ShoeType}");
+                    Console.WriteLine($"Price: {modelToUpdate.Price}");
+                    Console.WriteLine($"Gender Category: {modelToUpdate.GenderCategory}");
+                    Console.WriteLine($"Description: {modelToUpdate.Description}");
+
+                    bool continueEditing = true;
+                    while (continueEditing)
+                    {
+                        Console.WriteLine("Select which property to update:");
+                        Console.WriteLine("1. Brand");
+                        Console.WriteLine("2. Code");
+                        Console.WriteLine("3. Shoe Type");
+                        Console.WriteLine("4. Price");
+                        Console.WriteLine("5. Gender Category");
+                        Console.WriteLine("6. Finish Editing");
+
+                        Console.Write("Enter your choice: ");
+                        string choice = Console.ReadLine();
+
+                        switch (choice)
+                        {
+                            case "1":
+                                Console.Write("Enter new brand: ");
+                                modelToUpdate.Brand = Console.ReadLine();
+                                break;
+                            case "2":
+                                Console.Write("Enter new code: ");
+                                modelToUpdate.Code = Console.ReadLine();
+                                break;
+                            case "3":
+                                Console.Write("Enter new shoe type: ");
+                                modelToUpdate.ShoeType = Console.ReadLine();
+                                break;
+                            case "4":
+                                Console.Write("Enter new price: ");
+                                if (decimal.TryParse(Console.ReadLine(), out decimal price))
+                                {
+                                    modelToUpdate.Price = price;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid price.");
+                                }
+                                break;
+                            case "5":
+                                Console.Write("Enter new gender category (Men, Women, Unisex): ");
+                                modelToUpdate.GenderCategory = Console.ReadLine();
+                                break;
+                            case "6":
+                                continueEditing = false;
+                                break;
+                            default:
+                                Console.WriteLine("Invalid choice.");
+                                break;
+                        }
+                    }
+
+                    await _modelService.UpdateModelAsync(modelToUpdate);
+                    Console.WriteLine("Shoe model updated successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Shoe model with ID {modelId} not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid model ID.");
+            }
         }
 
-        public static void RemoveShoeModel()
+        public async static void RemoveShoeModel()
         {
-            // Code to remove a shoe model
-            Console.WriteLine("Removing a shoe model...");
-            // Implementation details here
+            Console.Write("Enter the ID of the shoe model to remove: ");
+            if (int.TryParse(Console.ReadLine(), out int modelId))
+            {
+                var modelToDelete = await _modelService.GetModelByIdAsync(modelId);
+                if (modelToDelete != null)
+                {
+                    Console.WriteLine("Model found:");
+                    Console.WriteLine("Current details of the shoe model:");
+                    Console.WriteLine($"ID: {modelToDelete.Id}");
+                    Console.WriteLine($"Brand: {modelToDelete.Brand}");
+                    Console.WriteLine($"Code: {modelToDelete.Code}");
+                    Console.WriteLine($"Shoe Type: {modelToDelete.ShoeType}");
+                    Console.WriteLine($"Price: {modelToDelete.Price}");
+                    Console.WriteLine($"Gender Category: {modelToDelete.GenderCategory}");
+                    Console.WriteLine($"Description: {modelToDelete.Description}");
+
+                    Console.Write("Are you sure you want to delete this model? (y/n): ");
+                    var confirmation = Console.ReadLine();
+                    if (confirmation.ToLower() == "y")
+                    {
+                        await _modelService.DeleteModelAsync(modelId);
+                        Console.WriteLine("Shoe model deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Deletion cancelled.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Shoe model with ID {modelId} not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid model ID.");
+            }
         }
 
         public static void AddShoes()

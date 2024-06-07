@@ -45,15 +45,15 @@ namespace ConsoleUserInterface
                             break;
                         case "2":
                             PrintOption("View Available Shoe Models selected.");
-                            // StorageConsoleManager.ViewAvailableShoeModels();
+                            StorageConsoleManager.ViewAvailableShoeModels();
                             break;
                         case "3":
                             PrintOption("Update a Shoe Model selected.");
-                            // StorageConsoleManager.UpdateShoeModel();
+                            StorageConsoleManager.UpdateShoeModel();
                             break;
                         case "4":
                             PrintOption("Remove a Shoe Model selected.");
-                            // StorageConsoleManager.RemoveShoeModel();
+                            StorageConsoleManager.RemoveShoeModel();
                             break;
                         case "5":
                             PrintOption("Add Shoes selected.");

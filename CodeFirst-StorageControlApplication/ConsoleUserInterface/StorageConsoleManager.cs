@@ -5,16 +5,93 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceLayer;
+using BusinessLayer;
 
 namespace ConsoleUserInterface
 {
     public static class StorageConsoleManager
     {
-        public static void AddShoeModel()
+
+        private static IModelService _modelService;
+
+        public static void Initialize(IModelService modelService)
         {
-            // Code to add a new shoe model
-            Console.WriteLine("Adding a new shoe model...");
-            // Implementation details here
+            _modelService = modelService;
+        }
+
+        public async static void AddShoeModel()
+        {
+            Console.Write("Enter Brand: ");
+            string brand = Console.ReadLine();
+
+            Console.Write("Enter Code: ");
+            string code = Console.ReadLine();
+
+            Console.Write("Enter Shoe Type: ");
+            string shoeType = Console.ReadLine();
+
+            Console.Write("Enter Price: ");
+            if (!decimal.TryParse(Console.ReadLine(), out decimal price))
+            {
+                Console.WriteLine("Invalid price. Please enter a valid decimal number.");
+                return;
+            }
+
+            Console.Write("Enter Gender Category (Men, Women, Unisex): ");
+            string genderCategory = Console.ReadLine();
+
+            Console.Write("Enter Description (optional): ");
+            string description = Console.ReadLine();
+            
+            Model newModel;
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                newModel = new Model(brand, code, shoeType, price, genderCategory);
+            }
+            else
+            {
+                newModel = new Model(brand, code, shoeType, price, genderCategory, description);
+            }
+
+            // Optional: Add shoes if you want to include them in the model
+            List<Shoe> shoes = new List<Shoe>();
+            bool addShoes = true;
+
+            while (addShoes)
+            {
+                Console.Write("Do you want to add a shoe to this model? (y/n): ");
+                string response = Console.ReadLine().ToLower();
+
+                if (response == "y")
+                {
+                    // Add shoe details (example placeholder code)
+                    // You can prompt for specific shoe details here
+                    Console.Write("Enter Shoe Size: ");
+                    if (!int.TryParse(Console.ReadLine(), out int size))
+                    {
+                        Console.WriteLine("Invalid size. Please enter a valid integer.");
+                        continue;
+                    }
+
+                    Console.Write("Enter Quantity: ");
+                    int quantity = int.Parse(Console.ReadLine());
+
+                    // Assume you have a constructor for Shoe that takes size and color
+                    var newShoe = new Shoe(size, quantity, newModel);
+                    shoes.Add(newShoe);
+                }
+                else
+                {
+                    addShoes = false;
+                }
+            }
+
+            newModel.Shoes = shoes;
+
+
+
+            await _modelService.CreateModelAsync(newModel);
+            Console.WriteLine("Shoe model added successfully.");
         }
 
         public static void ViewAvailableShoeModels()

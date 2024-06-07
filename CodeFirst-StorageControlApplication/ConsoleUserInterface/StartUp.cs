@@ -28,7 +28,7 @@
                 {
                     case "1":
                         PrintOption("Add New Shoe Model selected.");
-                        // StorageConsoleManager.AddShoeModel();
+                        StorageConsoleManager.AddShoeModel();
                         break;
                     case "2":
                         PrintOption("View Available Shoe Models selected.");

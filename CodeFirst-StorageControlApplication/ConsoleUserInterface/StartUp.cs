@@ -1,88 +1,102 @@
-﻿namespace ConsoleUserInterface
+﻿using DataLayer;
+using Microsoft.EntityFrameworkCore;
+using ServiceLayer;
+
+namespace ConsoleUserInterface
 {
     internal class StartUp
     {
         static void Main(string[] args)
         {
-            bool isRunning = true;
-
-            while (isRunning)
+            var optionsBuilder = new DbContextOptionsBuilder<StorageDbContext>();
+            optionsBuilder.UseSqlServer("Server=LAPTOP-UNHGGLSQ\\SQLEXPRESS;Database=StorageDb;Trusted_Connection=True;TrustServerCertificate=True;");
+            using (var storageDbContext = new StorageDbContext(optionsBuilder.Options))
             {
-                Console.Clear();
-                DrawMenu();
+                var modelsContext = new ModelsContext(storageDbContext);
 
-                Console.Write("╔═════════════════════════════════════════════╗\n");
-                Console.Write("║ Select an option:                           ║");
-                Console.SetCursorPosition(Console.CursorLeft - 27, Console.CursorTop); // Move cursor to correct position
-                Console.ForegroundColor = ConsoleColor.Blue; // sets the color to blue
+                var modelService = new ModelService(modelsContext);
 
-                string choice = Console.ReadLine();
-                Console.ResetColor(); // sets the color back to white
-                Console.WriteLine("╚═════════════════════════════════════════════╝");
+                StorageConsoleManager.Initialize(modelService);
+                bool isRunning = true;
 
-                Console.Clear();
-                DrawMenu(choice);
-
-                // Perform the selected action
-                switch (choice)
+                while (isRunning)
                 {
-                    case "1":
-                        PrintOption("Add New Shoe Model selected.");
-                        StorageConsoleManager.AddShoeModel();
-                        break;
-                    case "2":
-                        PrintOption("View Available Shoe Models selected.");
-                        // StorageConsoleManager.ViewAvailableShoeModels();
-                        break;
-                    case "3":
-                        PrintOption("Update a Shoe Model selected.");
-                        // StorageConsoleManager.UpdateShoeModel();
-                        break;
-                    case "4":
-                        PrintOption("Remove a Shoe Model selected.");
-                        // StorageConsoleManager.RemoveShoeModel();
-                        break;
-                    case "5":
-                        PrintOption("Add Shoes selected.");
-                        // StorageConsoleManager.AddShoes();
-                        break;
-                    case "6":
-                        PrintOption("View Shoes of a Particular Model selected.");
-                        // StorageConsoleManager.ViewShoesOfParticularModel();
-                        break;
-                    case "7":
-                        PrintOption("Manage Customers selected.");
-                        // StorageConsoleManager.ManageCustomers();
-                        break;
-                    case "8":
-                        PrintOption("Make a Purchase selected.");
-                        // StorageConsoleManager.MakePurchase();
-                        break;
-                    case "9":
-                        PrintOption("View Purchase History selected.");
-                        // StorageConsoleManager.ViewPurchaseHistory();
-                        break;
-                    case "10":
-                        PrintOption("Discard Shoes selected.");
-                        // StorageConsoleManager.DiscardShoes();
-                        break;
-                    case "0":
-                        PrintOption("Exiting the program...");
-                        isRunning = false;
-                        break;
-                    default:
-                        Console.ForegroundColor = ConsoleColor.DarkRed; // sets the color to dark red
-                        PrintOption("Invalid choice. Please try again.");
-                        Console.ResetColor();
-                        break;
-                }
+                    Console.Clear();
+                    DrawMenu();
 
-                if (isRunning)
-                {
-                    Console.WriteLine("\nPress any key to continue...");
-                    Console.ReadKey();
-                }
+                    Console.Write("╔═════════════════════════════════════════════╗\n");
+                    Console.Write("║ Select an option:                           ║");
+                    Console.SetCursorPosition(Console.CursorLeft - 27, Console.CursorTop); // Move cursor to correct position
+                    Console.ForegroundColor = ConsoleColor.Blue; // sets the color to blue
 
+                    string choice = Console.ReadLine();
+                    Console.ResetColor(); // sets the color back to white
+                    Console.WriteLine("╚═════════════════════════════════════════════╝");
+
+                    Console.Clear();
+                    DrawMenu(choice);
+
+                    // Perform the selected action
+                    switch (choice)
+                    {
+                        case "1":
+                            PrintOption("Add New Shoe Model selected.");
+                            StorageConsoleManager.AddShoeModel();
+                            break;
+                        case "2":
+                            PrintOption("View Available Shoe Models selected.");
+                            // StorageConsoleManager.ViewAvailableShoeModels();
+                            break;
+                        case "3":
+                            PrintOption("Update a Shoe Model selected.");
+                            // StorageConsoleManager.UpdateShoeModel();
+                            break;
+                        case "4":
+                            PrintOption("Remove a Shoe Model selected.");
+                            // StorageConsoleManager.RemoveShoeModel();
+                            break;
+                        case "5":
+                            PrintOption("Add Shoes selected.");
+                            // StorageConsoleManager.AddShoes();
+                            break;
+                        case "6":
+                            PrintOption("View Shoes of a Particular Model selected.");
+                            // StorageConsoleManager.ViewShoesOfParticularModel();
+                            break;
+                        case "7":
+                            PrintOption("Manage Customers selected.");
+                            // StorageConsoleManager.ManageCustomers();
+                            break;
+                        case "8":
+                            PrintOption("Make a Purchase selected.");
+                            // StorageConsoleManager.MakePurchase();
+                            break;
+                        case "9":
+                            PrintOption("View Purchase History selected.");
+                            // StorageConsoleManager.ViewPurchaseHistory();
+                            break;
+                        case "10":
+                            PrintOption("Discard Shoes selected.");
+                            // StorageConsoleManager.DiscardShoes();
+                            break;
+                        case "0":
+                            PrintOption("Exiting the program...");
+                            isRunning = false;
+                            break;
+                        default:
+                            Console.ForegroundColor = ConsoleColor.DarkRed; // sets the color to dark red
+                            PrintOption("Invalid choice. Please try again.");
+                            Console.ResetColor();
+                            break;
+                    }
+
+                    if (isRunning)
+                    {
+                        Console.WriteLine("\nPress any key to continue...");
+                        Console.ReadKey();
+                    }
+
+                }
             }
         }
 

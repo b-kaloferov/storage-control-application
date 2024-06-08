@@ -101,7 +101,7 @@ namespace ConsoleUserInterface
             Console.WriteLine("Available Shoe Models:");
             foreach (var model in availableModels)
             {
-                Console.WriteLine($"ID: {model.Id}, Brand: {model.Brand}, Code: {model.Code}, Shoe Type: {model.ShoeType}, Price: {model.Price}");
+                Console.WriteLine($"ID: {model.Id}, Brand: {model.Brand}, Code: {model.Code}, Shoe Type: {model.ShoeType}, Price: {model.Price}, Gender: {model.GenderCategory}");
             }
         }
 

@@ -6,7 +6,7 @@ namespace ConsoleUserInterface
 {
     internal class StartUp
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<StorageDbContext>();
             optionsBuilder.UseSqlServer("Server=LAPTOP-UNHGGLSQ\\SQLEXPRESS;Database=StorageDb;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -41,19 +41,19 @@ namespace ConsoleUserInterface
                     {
                         case "1":
                             PrintOption("Add New Shoe Model selected.");
-                            StorageConsoleManager.AddShoeModel();
+                            await StorageConsoleManager.AddShoeModel();
                             break;
                         case "2":
                             PrintOption("View Available Shoe Models selected.");
-                            StorageConsoleManager.ViewAvailableShoeModels();
+                            await StorageConsoleManager.ViewAvailableShoeModels();
                             break;
                         case "3":
                             PrintOption("Update a Shoe Model selected.");
-                            StorageConsoleManager.UpdateShoeModel();
+                            await StorageConsoleManager.UpdateShoeModel();
                             break;
                         case "4":
                             PrintOption("Remove a Shoe Model selected.");
-                            StorageConsoleManager.RemoveShoeModel();
+                            await StorageConsoleManager.RemoveShoeModel();
                             break;
                         case "5":
                             PrintOption("Add Shoes selected.");

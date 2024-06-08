@@ -19,7 +19,7 @@ namespace ConsoleUserInterface
             _modelService = modelService;
         }
 
-        public async static void AddShoeModel()
+        public static async Task AddShoeModel()
         {
             Console.Write("Enter Brand: ");
             string brand = Console.ReadLine();
@@ -94,7 +94,7 @@ namespace ConsoleUserInterface
             Console.WriteLine("Shoe model added successfully.");
         }
 
-        public async static void ViewAvailableShoeModels()
+        public static async Task ViewAvailableShoeModels()
         {
             var availableModels = await _modelService.GetAllModelsAsync();
 
@@ -105,7 +105,7 @@ namespace ConsoleUserInterface
             }
         }
 
-        public async static void UpdateShoeModel()
+        public static async Task UpdateShoeModel()
         {
             Console.Write("Enter the ID of the shoe model to update: ");
             if (int.TryParse(Console.ReadLine(), out int modelId))
@@ -189,7 +189,7 @@ namespace ConsoleUserInterface
             }
         }
 
-        public async static void RemoveShoeModel()
+        public static async Task RemoveShoeModel()
         {
             Console.Write("Enter the ID of the shoe model to remove: ");
             if (int.TryParse(Console.ReadLine(), out int modelId))

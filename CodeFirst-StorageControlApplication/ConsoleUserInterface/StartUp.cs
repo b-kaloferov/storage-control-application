@@ -13,10 +13,12 @@ namespace ConsoleUserInterface
             using (var storageDbContext = new StorageDbContext(optionsBuilder.Options))
             {
                 var modelsContext = new ModelsContext(storageDbContext);
-
                 var modelService = new ModelService(modelsContext);
 
-                StorageConsoleManager.Initialize(modelService);
+                var clientsContext = new ClientsContext(storageDbContext);
+                var clientService = new ClientService(clientsContext);
+
+                StorageConsoleManager.Initialize(modelService, clientService);
                 bool isRunning = true;
 
                 while (isRunning)

@@ -13,10 +13,12 @@ namespace ConsoleUserInterface
     {
 
         private static IModelService _modelService;
+        private static IClientService _clientService;
 
-        public static void Initialize(IModelService modelService)
+        public static void Initialize(IModelService modelService, IClientService clientService)
         {
             _modelService = modelService;
+            _clientService = clientService;
         }
 
         public static async Task AddShoeModel()
@@ -42,7 +44,7 @@ namespace ConsoleUserInterface
 
             Console.Write("Enter Description (optional): ");
             string description = Console.ReadLine();
-            
+
             Model newModel;
             if (string.IsNullOrWhiteSpace(description))
             {
@@ -300,11 +302,55 @@ namespace ConsoleUserInterface
             // Implementation details here
         }
 
-        public static void ManageCustomers()
+        public static async Task ManageCustomers()
         {
-            // Code to manage customers
-            Console.WriteLine("Managing customers...");
-            // Implementation details here
+            bool manageCustomersRunning = true;
+
+            while (manageCustomersRunning)
+            {
+                Console.Clear();
+                Console.WriteLine("Customer Management");
+                Console.WriteLine("1. Add New Customer");
+                Console.WriteLine("2. Find Customer by ID");
+                Console.WriteLine("3. View All Customers");
+                Console.WriteLine("4. Update Customer");
+                Console.WriteLine("5. Remove Customer");
+                Console.WriteLine("0. Back to Main Menu");
+
+                Console.Write("Select an option: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        await AddNewCustomer();
+                        break;               
+                    case "2":
+                        await FindCustomerById();
+                        break;
+                    case "3":
+                        await ViewAllCustomers();
+                        break;
+                    case "4":
+                        await UpdateCustomer();
+                        break;
+                    case "5":
+                        await RemoveCustomer();
+                        break;
+                    case "0":
+                        manageCustomersRunning = false;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+
+                if (manageCustomersRunning)
+                {
+                    Console.WriteLine("\nPress any key to continue...");
+                    Console.ReadKey();
+                }
+            }
         }
 
         public static void MakePurchase()
@@ -340,6 +386,168 @@ namespace ConsoleUserInterface
             else
             {
                 Console.WriteLine("Invalid Model ID.");
+            }
+        }
+
+        //private methods for ManageCustomers()
+        private static async Task AddNewCustomer()
+        {
+            Console.Write("Enter customer name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter customer address: ");
+            string address = Console.ReadLine();
+
+            Console.Write("Enter customer email: ");
+            string email = Console.ReadLine();
+
+            Console.Write("Enter customer phone number: ");
+            string phoneNumber = Console.ReadLine();
+
+            var newClient = new Client(name, address, email, phoneNumber);
+
+            await _clientService.CreateClientAsync(newClient);
+            Console.WriteLine("Customer added successfully.");
+        }
+
+        private static async Task FindCustomerById()
+        {
+            Console.Write("Enter the ID of the customer to find: ");
+            if (int.TryParse(Console.ReadLine(), out int clientId))
+            {
+                var client = await _clientService.GetClientByIdAsync(clientId);
+                if (client != null)
+                {
+                    Console.WriteLine($"Client ID: {client.Id}");
+                    Console.WriteLine($"Name: {client.Name}");
+                    Console.WriteLine($"Address: {client.Address}");
+                    Console.WriteLine($"Email: {client.Email}");
+                    Console.WriteLine($"Phone Number: {client.PhoneNumber}");
+                }
+                else
+                {
+                    Console.WriteLine("Customer not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid customer ID.");
+            }
+        }
+
+        private static async Task ViewAllCustomers()
+        {
+            var clients = await _clientService.GetAllClientsAsync();
+
+            if (clients.Count > 0)
+            {
+                foreach (var client in clients)
+                {
+                    Console.WriteLine($"Client ID: {client.Id}");
+                    Console.WriteLine($"Name: {client.Name}");
+                    Console.WriteLine($"Address: {client.Address}");
+                    Console.WriteLine($"Email: {client.Email}");
+                    Console.WriteLine($"Phone Number: {client.PhoneNumber}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No customers found.");
+            }
+        }
+
+        private static async Task UpdateCustomer()
+        {
+            Console.Write("Enter the ID of the customer to update: ");
+            if (int.TryParse(Console.ReadLine(), out int clientId))
+            {
+                var client = await _clientService.GetClientByIdAsync(clientId);
+
+                if (client != null)
+                {
+                    bool updating = true;
+                    while (updating)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Select the property to update:");
+                        Console.WriteLine("1. Name");
+                        Console.WriteLine("2. Address");
+                        Console.WriteLine("3. Email");
+                        Console.WriteLine("4. Phone Number");
+                        Console.WriteLine("0. Finish updating");
+
+                        Console.Write("Enter your choice: ");
+                        string choice = Console.ReadLine();
+
+                        switch (choice)
+                        {
+                            case "1":
+                                Console.Write("Enter new name (leave empty to keep current): ");
+                                string newName = Console.ReadLine();
+                                if (!string.IsNullOrEmpty(newName))
+                                {
+                                    client.Name = newName;
+                                }
+                                break;
+                            case "2":
+                                Console.Write("Enter new address (leave empty to keep current): ");
+                                string newAddress = Console.ReadLine();
+                                if (!string.IsNullOrEmpty(newAddress))
+                                {
+                                    client.Address = newAddress;
+                                }
+                                break;
+                            case "3":
+                                Console.Write("Enter new email (leave empty to keep current): ");
+                                string newEmail = Console.ReadLine();
+                                if (!string.IsNullOrEmpty(newEmail))
+                                {
+                                    client.Email = newEmail;
+                                }
+                                break;
+                            case "4":
+                                Console.Write("Enter new phone number (leave empty to keep current): ");
+                                string newPhoneNumber = Console.ReadLine();
+                                if (!string.IsNullOrEmpty(newPhoneNumber))
+                                {
+                                    client.PhoneNumber = newPhoneNumber;
+                                }
+                                break;
+                            case "0":
+                                updating = false;
+                                break;
+                            default:
+                                Console.WriteLine("Invalid choice. Please try again.");
+                                break;
+                        }
+                    }
+                    
+                    await _clientService.UpdateClientAsync(client);
+                    Console.WriteLine("Customer updated successfully.");
+
+                }
+                else
+                {
+                    Console.WriteLine("Customer not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid customer ID.");
+            }
+        }
+
+        private static async Task RemoveCustomer()
+        {
+            Console.Write("Enter the ID of the customer to remove: ");
+            if (int.TryParse(Console.ReadLine(), out int clientId))
+            {
+                await _clientService.DeleteClientAsync(clientId);
+                Console.WriteLine("Customer removed successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid customer ID.");
             }
         }
     }

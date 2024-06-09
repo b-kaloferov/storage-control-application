@@ -251,7 +251,7 @@ namespace ConsoleUserInterface
                     Console.WriteLine($"Description: {modelToAddShoes.Description}");
                     Console.WriteLine();
 
-                    List<Shoe> newShoes = new List<Shoe>();
+                    List<Shoe> newShoes = modelToAddShoes.Shoes;
                     bool continueAddingShoes = true;
                     while (continueAddingShoes)
                     {
@@ -279,7 +279,7 @@ namespace ConsoleUserInterface
                         }
                     }
 
-                    modelToAddShoes.Shoes.AddRange(newShoes);
+                    modelToAddShoes.Shoes = newShoes;
 
                     await _modelService.UpdateModelAsync(modelToAddShoes, true);
                     Console.WriteLine("Shoes added successfully.");
@@ -295,11 +295,39 @@ namespace ConsoleUserInterface
             }
         }
 
-        public static void ViewShoesOfParticularModel()
+        public static async Task ViewShoesOfParticularModel()
         {
-            // Code to view shoes of a particular model
-            Console.WriteLine("Viewing shoes of a particular model...");
-            // Implementation details here
+            Console.Write("Enter the model ID to view its shoes: ");
+            if (int.TryParse(Console.ReadLine(), out int modelId))
+            {
+                var model = await _modelService.GetModelByIdAsync(modelId, true);
+                if (model != null)
+                {
+                    Console.WriteLine($"Model ID: {model.Id}");
+                    Console.WriteLine($"Brand: {model.Brand}");
+                    Console.WriteLine($"Code: {model.Code}");
+                    Console.WriteLine($"Shoe Type: {model.ShoeType}");
+                    Console.WriteLine($"Price: {model.Price}");
+                    Console.WriteLine($"Gender Category: {model.GenderCategory}");
+                    Console.WriteLine($"Description: {model.Description}");
+                    Console.WriteLine("Shoes:");
+
+                    foreach (var shoe in model.Shoes)
+                    {
+                        Console.WriteLine($"  Shoe ID: {shoe.Id}");
+                        Console.WriteLine($"  Size: {shoe.Size}");
+                        Console.WriteLine($"  Quantity: {shoe.Quantity}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Model not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid model ID.");
+            }
         }
 
         public static async Task ManageCustomers()

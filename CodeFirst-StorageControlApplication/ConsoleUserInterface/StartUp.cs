@@ -63,11 +63,11 @@ namespace ConsoleUserInterface
                             break;
                         case "6":
                             PrintOption("View Shoes of a Particular Model selected.");
-                            // StorageConsoleManager.ViewShoesOfParticularModel();
+                            await StorageConsoleManager.ViewShoesOfParticularModel();
                             break;
                         case "7":
                             PrintOption("Manage Customers selected.");
-                            // StorageConsoleManager.ManageCustomers();
+                            await StorageConsoleManager.ManageCustomers();
                             break;
                         case "8":
                             PrintOption("Make a Purchase selected.");

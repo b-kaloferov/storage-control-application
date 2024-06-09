@@ -270,8 +270,16 @@ namespace ConsoleUserInterface
                             Console.Write("Enter Quantity: ");
                             int quantity = int.Parse(Console.ReadLine());
 
-                            var newShoe = new Shoe(size, quantity, modelToAddShoes);
-                            newShoes.Add(newShoe);
+                            var existingShoe = modelToAddShoes.Shoes.FirstOrDefault(s => s.Size == size);
+                            if (existingShoe != null)
+                            {
+                                existingShoe.Quantity += quantity;
+                            }
+                            else
+                            {
+                                var newShoe = new Shoe(size, quantity, modelToAddShoes);
+                                modelToAddShoes.Shoes.Add(newShoe);
+                            }
                         }
                         else
                         {

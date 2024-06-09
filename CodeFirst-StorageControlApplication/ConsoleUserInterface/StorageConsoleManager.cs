@@ -230,11 +230,67 @@ namespace ConsoleUserInterface
             }
         }
 
-        public static void AddShoes()
+        public static async Task AddShoes()
         {
-            // Code to add shoes
-            Console.WriteLine("Adding shoes...");
-            // Implementation details here
+            Console.Write("Enter the ID of the shoe model to add shoes: ");
+            if (int.TryParse(Console.ReadLine(), out int modelId))
+            {
+                var modelToAddShoes = await _modelService.GetModelByIdAsync(modelId);
+
+                if (modelToAddShoes != null)
+                {
+                    Console.WriteLine("Current details of the shoe model:");
+                    Console.WriteLine($"ID: {modelToAddShoes.Id}");
+                    Console.WriteLine($"Brand: {modelToAddShoes.Brand}");
+                    Console.WriteLine($"Code: {modelToAddShoes.Code}");
+                    Console.WriteLine($"Shoe Type: {modelToAddShoes.ShoeType}");
+                    Console.WriteLine($"Price: {modelToAddShoes.Price}");
+                    Console.WriteLine($"Gender Category: {modelToAddShoes.GenderCategory}");
+                    Console.WriteLine($"Description: {modelToAddShoes.Description}");
+                    Console.WriteLine();
+
+                    List<Shoe> newShoes = new List<Shoe>();
+                    bool continueAddingShoes = true;
+                    while (continueAddingShoes)
+                    {
+                        Console.Write("Do you want to add a shoe to this model? (y/n): ");
+                        string response = Console.ReadLine().ToLower();
+
+                        if (response == "y")
+                        {
+                            Console.Write("Enter Shoe Size: ");
+                            if (!int.TryParse(Console.ReadLine(), out int size))
+                            {
+                                Console.WriteLine("Invalid size. Please enter a valid integer.");
+                                continue;
+                            }
+
+                            Console.Write("Enter Quantity: ");
+                            int quantity = int.Parse(Console.ReadLine());
+
+                            var newShoe = new Shoe(size, quantity, modelToAddShoes);
+                            newShoes.Add(newShoe);
+                        }
+                        else
+                        {
+                            continueAddingShoes = false;
+                        }
+                    }
+
+                    modelToAddShoes.Shoes.AddRange(newShoes);
+
+                    await _modelService.UpdateModelAsync(modelToAddShoes, true);
+                    Console.WriteLine("Shoes added successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Shoe model with ID {modelId} not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid model ID.");
+            }
         }
 
         public static void ViewShoesOfParticularModel()

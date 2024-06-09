@@ -57,7 +57,7 @@ namespace ConsoleUserInterface
                             break;
                         case "5":
                             PrintOption("Add Shoes selected.");
-                            // StorageConsoleManager.AddShoes();
+                            await StorageConsoleManager.AddShoes();
                             break;
                         case "6":
                             PrintOption("View Shoes of a Particular Model selected.");

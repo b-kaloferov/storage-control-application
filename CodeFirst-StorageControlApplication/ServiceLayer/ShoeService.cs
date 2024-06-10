@@ -27,6 +27,21 @@ namespace ServiceLayer
             await _shoesContext.CreateAsync(shoe);
         }
 
+        public async Task<Shoe> GetShoeByIdAsync(int id, bool useNavigationalProperties = false)
+        {
+            return await _shoesContext.ReadAsync(id, useNavigationalProperties);
+        }
+
+        public async Task UpdateShoeAsync(Shoe shoe, bool useNavigationalProperties = false)
+        {
+            if (shoe == null)
+            {
+                throw new ArgumentNullException("There is not implemented Shoe object.");
+            }
+
+            await _shoesContext.UpdateAsync(model, useNavigationalProperties);
+        }
+
         public async Task DiscardShoesAsync(int id, int quantity)
         {
             var shoes = await _shoesContext.ReadAllAsync();

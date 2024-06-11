@@ -239,7 +239,7 @@ namespace ConsoleUserInterface
             Console.Write("Enter the ID of the shoe model to add shoes: ");
             if (int.TryParse(Console.ReadLine(), out int modelId))
             {
-                var modelToAddShoes = await _modelService.GetModelByIdAsync(modelId);
+                var modelToAddShoes = await _modelService.GetModelByIdAsync(modelId, true);
 
                 if (modelToAddShoes != null)
                 {
@@ -276,24 +276,20 @@ namespace ConsoleUserInterface
                             }
                             bool isExisting = false;
                             //var existingShoe = modelToAddShoes.Shoes.FirstOrDefault(s => s.Size == size);
-                            foreach(var item in modelToAddShoes.Shoes)
+                            var shoesForModel = await _shoeService.GetShoesByModelIdAsync(modelId);
+                            var existingShoe = shoesForModel.FirstOrDefault(s => s.Size == size);
+
+                            if (existingShoe != null)
                             {
-                                Shoe existingShoe = await _shoeService.GetShoeByIdAsync(item.Id);
-                                if(existingShoe.Size == size)
-                                {
-                                    //existingShoe.Quantity += quantity;
-                                    await _shoeService.UpdateShoeAsync(existingShoe);
-                                    isExisting = true;
-                                }
-                                
+                                existingShoe.Quantity += quantity;
+                                await _shoeService.UpdateShoeAsync(existingShoe);
                             }
-                            if (!isExisting)
+                            else
                             {
                                 var newShoe = new Shoe(size, quantity, modelToAddShoes);
-                                modelToAddShoes.Shoes.Add(newShoe);
                                 await _shoeService.CreateShoeAsync(newShoe);
                             }
-                         
+
 
                             //if (existingShoe != null)
                             //{

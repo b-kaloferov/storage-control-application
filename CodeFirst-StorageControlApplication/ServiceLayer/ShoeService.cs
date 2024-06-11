@@ -31,6 +31,14 @@ namespace ServiceLayer
         {
             return await _shoesContext.ReadAsync(id, useNavigationalProperties);
         }
+        public async Task<List<Shoe>> GetShoesByModelIdAsync(int modelId)
+        {
+            var allShoes = await _shoesContext.ReadAllAsync();
+
+            var shoesForModel = allShoes.Where(s => s.ModelId == modelId).ToList();
+
+            return shoesForModel;
+        }
 
         public async Task UpdateShoeAsync(Shoe shoe, bool useNavigationalProperties = false)
         {

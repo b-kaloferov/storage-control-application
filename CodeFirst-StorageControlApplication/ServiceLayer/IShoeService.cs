@@ -11,6 +11,7 @@ namespace ServiceLayer
     {
         Task CreateShoeAsync(Shoe shoe);
         Task<Shoe> GetShoeByIdAsync(int id, bool useNavigationalProperties = false);
+        Task<List<Shoe>> GetShoesByModelIdAsync(int modelId);
         Task UpdateShoeAsync(Shoe shoe, bool useNavigationalProperties = false);
         Task DiscardShoesAsync(int id, int quantity);
     }

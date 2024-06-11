@@ -14,16 +14,18 @@ namespace ConsoleUserInterface
 
         private static IModelService _modelService;
         private static IClientService _clientService;
+        private static IShoeService _shoeService;
 
-        public static void Initialize(IModelService modelService, IClientService clientService)
+        public static void Initialize(IModelService modelService, IClientService clientService, IShoeService shoeService)
         {
             _modelService = modelService;
             _clientService = clientService;
+            _shoeService = shoeService;
         }
 
         public static async Task AddShoeModel()
         {
-            Console.Write("Enter Brand: ");
+            Console.Write("Enter Brand:");
             string brand = Console.ReadLine();
 
             Console.Write("Enter Code: ");
@@ -251,7 +253,6 @@ namespace ConsoleUserInterface
                     Console.WriteLine($"Description: {modelToAddShoes.Description}");
                     Console.WriteLine();
 
-                    List<Shoe> newShoes = modelToAddShoes.Shoes;
                     bool continueAddingShoes = true;
                     while (continueAddingShoes)
                     {
@@ -268,18 +269,43 @@ namespace ConsoleUserInterface
                             }
 
                             Console.Write("Enter Quantity: ");
-                            int quantity = int.Parse(Console.ReadLine());
-
-                            var existingShoe = modelToAddShoes.Shoes.FirstOrDefault(s => s.Size == size);
-                            if (existingShoe != null)
+                            if (!int.TryParse(Console.ReadLine(), out int quantity))
                             {
-                                existingShoe.Quantity += quantity;
+                                Console.WriteLine("Invalid quantity. Please enter a valid integer.");
+                                continue;
                             }
-                            else
+                            bool isExisting = false;
+                            //var existingShoe = modelToAddShoes.Shoes.FirstOrDefault(s => s.Size == size);
+                            foreach(var item in modelToAddShoes.Shoes)
+                            {
+                                Shoe existingShoe = await _shoeService.GetShoeByIdAsync(item.Id);
+                                if(existingShoe.Size == size)
+                                {
+                                    //existingShoe.Quantity += quantity;
+                                    await _shoeService.UpdateShoeAsync(existingShoe);
+                                    isExisting = true;
+                                }
+                                
+                            }
+                            if (!isExisting)
                             {
                                 var newShoe = new Shoe(size, quantity, modelToAddShoes);
                                 modelToAddShoes.Shoes.Add(newShoe);
+                                await _shoeService.CreateShoeAsync(newShoe);
                             }
+                         
+
+                            //if (existingShoe != null)
+                            //{
+                            //    existingShoe.Quantity += quantity;
+                            //    await _shoeService.UpdateShoeAsync(existingShoe);
+                            //}
+                            //else
+                            //{
+                            //    var newShoe = new Shoe(size, quantity, modelToAddShoes);
+                            //    modelToAddShoes.Shoes.Add(newShoe);
+                            //    await _shoeService.CreateShoeAsync(newShoe);
+                            //}
                         }
                         else
                         {
@@ -287,8 +313,7 @@ namespace ConsoleUserInterface
                         }
                     }
 
-                    modelToAddShoes.Shoes = newShoes;
-
+                    // Update the model in the database
                     await _modelService.UpdateModelAsync(modelToAddShoes, true);
                     Console.WriteLine("Shoes added successfully.");
                 }

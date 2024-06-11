@@ -18,7 +18,10 @@ namespace ConsoleUserInterface
                 var clientsContext = new ClientsContext(storageDbContext);
                 var clientService = new ClientService(clientsContext);
 
-                StorageConsoleManager.Initialize(modelService, clientService);
+                var shoesContext = new ShoesContext(storageDbContext);
+                var shoeService = new ShoeService(shoesContext);
+
+                StorageConsoleManager.Initialize(modelService, clientService, shoeService);
                 bool isRunning = true;
 
                 while (isRunning)

@@ -93,7 +93,7 @@ namespace ConsoleUserInterface
 
 
             await _modelService.CreateModelAsync(newModel);
-            Console.WriteLine("Shoe model added successfully.");
+            PrintOption("Shoe model added successfully.");
         }
 
         public static async Task ViewAvailableShoeModels()
@@ -585,6 +585,29 @@ namespace ConsoleUserInterface
             {
                 Console.WriteLine("Invalid customer ID.");
             }
+        }
+
+        /// <summary>
+        /// Shows a message in a frame with specified color.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="isSuccess"></param>
+        static void PrintOption(string message, bool isSuccess = false)
+        {
+            if (isSuccess)
+            {
+                Console.ForegroundColor = ConsoleColor.Green; // sets the color to green
+            }
+            else
+            {
+                Console.ResetColor(); // sets the color to white
+            }
+
+            Console.WriteLine("╔═════════════════════════════════════════════╗");
+            Console.WriteLine($"║ {message.PadRight(43)} ║");
+            Console.WriteLine("╚═════════════════════════════════════════════╝");
+
+            Console.ResetColor(); // sets the color back to default
         }
     }
 }

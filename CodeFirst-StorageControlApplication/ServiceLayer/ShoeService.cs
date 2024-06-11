@@ -39,7 +39,7 @@ namespace ServiceLayer
                 throw new ArgumentNullException("There is not implemented Shoe object.");
             }
 
-            await _shoesContext.UpdateAsync(model, useNavigationalProperties);
+            await _shoesContext.UpdateAsync(shoe, useNavigationalProperties);
         }
 
         public async Task DiscardShoesAsync(int id, int quantity)

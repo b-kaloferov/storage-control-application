@@ -93,7 +93,7 @@ namespace ConsoleUserInterface
 
 
             await _modelService.CreateModelAsync(newModel);
-            PrintOption("Shoe model added successfully.");
+            PrintOption("Shoe model added successfully.", true);
         }
 
         public static async Task ViewAvailableShoeModels()

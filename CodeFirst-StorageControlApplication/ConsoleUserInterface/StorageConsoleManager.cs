@@ -288,6 +288,7 @@ namespace ConsoleUserInterface
                             {
                                 var newShoe = new Shoe(size, quantity, modelToAddShoes);
                                 await _shoeService.CreateShoeAsync(newShoe);
+                                modelToAddShoes.Shoes.Add(newShoe);
                             }
 
 

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using DataLayer;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,18 @@ namespace ServiceLayer
         {
             var orders = await _ordersContext.ReadAllAsync(useNavigationalProperties);
             return orders.Where(o => o.ClientId == clientId).ToList();
+
+
+
+            //IQueryable<Order> query = _ordersContext.Orders;
+
+            //if (useNavigationalProperties)
+            //{
+            //    query = query.Include(o => o.OrderDetails)
+            //                 .ThenInclude(od => od.Shoe);
+            //}
+
+            //return await query.ToListAsync();
         }
         
         public async Task<List<Order>> GetAllPurchasesHistoryAsync(bool useNavigationalProperties = false)

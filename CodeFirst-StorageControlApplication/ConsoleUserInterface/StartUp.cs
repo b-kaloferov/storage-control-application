@@ -84,7 +84,7 @@ namespace ConsoleUserInterface
                             break;
                         case "9":
                             PrintOption("View Purchase History selected.");
-                            // StorageConsoleManager.ViewPurchaseHistory();
+                            await StorageConsoleManager.ViewPurchasesHistory();
                             break;
                         case "10":
                             PrintOption("Discard Shoes selected.");

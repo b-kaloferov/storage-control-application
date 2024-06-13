@@ -441,11 +441,20 @@ namespace ConsoleUserInterface
             }
         }
 
-        public static void ViewPurchaseHistory()
+        public static async Task ViewPurchasesHistory()
         {
-            // Code to view purchase history
-            Console.WriteLine("Viewing purchase history...");
-            // Implementation details here
+
+            var orders = await _orderService.GetAllPurchasesHistoryAsync();
+            foreach (var order in orders)
+            {
+                Console.WriteLine($"Order ID: {order.Id}, Order Date: {order.OrderDate}, Client ID: {order.ClientId}");
+                foreach (var detail in order.OrderDetails)
+                {
+                    Console.WriteLine($"Shoe ID: {detail.ShoeId}, Size: {detail.Shoe.Size}, Quantity: {detail.Quantity}");
+                }
+            }
+  
+
         }
 
         public static async Task DiscardShoes()
@@ -632,6 +641,8 @@ namespace ConsoleUserInterface
             }
         }
 
+
+
         //private methods for ManagePurchase
 
         private static async Task CreatePurchase()
@@ -750,6 +761,8 @@ namespace ConsoleUserInterface
             foreach (var detail in order.OrderDetails)
             {
                 var shoe = await _shoeService.GetShoeByIdAsync(detail.ShoeId);
+                detail.Shoe = shoe;
+
                 if (shoe.Quantity < detail.Quantity)
                 {
                     Console.WriteLine($"Not enough quantity for shoe ID {shoe.Id} with size {shoe.Size}. Available: {shoe.Quantity}, Requested: {detail.Quantity}");

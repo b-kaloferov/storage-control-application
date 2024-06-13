@@ -23,14 +23,14 @@ namespace DataLayer
         {
             try
             {
-                Shoe shoeFromDB = _storageDbContext.Shoes.Find(entity.Shoe.Id);
+                Shoe shoeFromDB = await _storageDbContext.Shoes.FindAsync(entity.Shoe.Id);
 
                 if (shoeFromDB is not null)
                 {
                     entity.Shoe = shoeFromDB;
                 }
 
-                Order orderFromDB = _storageDbContext.Orders.Find(entity.Order.Id);
+                Order orderFromDB = await _storageDbContext.Orders.FindAsync(entity.Order.Id);
 
                 if (orderFromDB is not null)
                 {

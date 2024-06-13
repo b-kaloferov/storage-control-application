@@ -21,7 +21,13 @@ namespace ConsoleUserInterface
                 var shoesContext = new ShoesContext(storageDbContext);
                 var shoeService = new ShoeService(shoesContext);
 
-                StorageConsoleManager.Initialize(modelService, clientService, shoeService);
+                var orderDetailsContext = new OrderDetailsContext(storageDbContext);
+                
+
+                var ordersContext = new OrdersContext(storageDbContext);
+                var orderService = new OrderService(ordersContext,orderDetailsContext , clientsContext, shoesContext);
+
+                StorageConsoleManager.Initialize(modelService, clientService, shoeService, orderService);
                 bool isRunning = true;
 
                 while (isRunning)
@@ -74,7 +80,7 @@ namespace ConsoleUserInterface
                             break;
                         case "8":
                             PrintOption("Make a Purchase selected.");
-                            // StorageConsoleManager.MakePurchase();
+                            await StorageConsoleManager.ManagePurchase();
                             break;
                         case "9":
                             PrintOption("View Purchase History selected.");
@@ -125,7 +131,7 @@ namespace ConsoleUserInterface
                 "5. Add Shoes",
                 "6. View Shoes of a Particular Model",
                 "7. Manage Customers",
-                "8. Make a Purchase",
+                "8. Manage a Purchase",
                 "9. View Purchase History",
                 "10. Discard Shoes",
                 "0. Exit"

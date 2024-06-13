@@ -36,6 +36,7 @@ namespace ServiceLayer
             {
                 throw new ArgumentException("Client does not exist.");
             }
+            order.Client = client;
 
             foreach (var detail in order.OrderDetails)
             {
@@ -46,10 +47,11 @@ namespace ServiceLayer
                 }
 
                 detail.Shoe = shoe;
+                detail.Order = order;
                 await _orderDetailsContext.CreateAsync(detail);
             }
 
-            order.Client = client;
+            
             await _ordersContext.CreateAsync(order);
         }
         

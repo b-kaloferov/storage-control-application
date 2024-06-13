@@ -15,12 +15,14 @@ namespace ConsoleUserInterface
         private static IModelService _modelService;
         private static IClientService _clientService;
         private static IShoeService _shoeService;
+        private static IOrderService _orderService;
 
-        public static void Initialize(IModelService modelService, IClientService clientService, IShoeService shoeService)
+        public static void Initialize(IModelService modelService, IClientService clientService, IShoeService shoeService, IOrderService orderService)
         {
             _modelService = modelService;
             _clientService = clientService;
             _shoeService = shoeService;
+            _orderService = orderService;
         }
 
         public static async Task AddShoeModel()
@@ -411,11 +413,32 @@ namespace ConsoleUserInterface
             }
         }
 
-        public static void MakePurchase()
+        public static async Task ManagePurchase()
         {
-            // Code to make a purchase
-            Console.WriteLine("Making a purchase...");
-            // Implementation details here
+            Console.WriteLine("Select an option:");
+            Console.WriteLine("1. Create Purchase");
+            Console.WriteLine("2. Complete Purchase");
+            Console.Write("Enter your choice: ");
+
+            if (int.TryParse(Console.ReadLine(), out int choice))
+            {
+                switch (choice)
+                {
+                    case 1:
+                        await CreatePurchase();
+                        break;
+                    case 2:
+                        await CompletePurchase();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a number.");
+            }
         }
 
         public static void ViewPurchaseHistory()
@@ -608,6 +631,139 @@ namespace ConsoleUserInterface
                 Console.WriteLine("Invalid customer ID.");
             }
         }
+
+        //private methods for ManagePurchase
+
+        private static async Task CreatePurchase()
+        {
+            Console.Write("Enter Client ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int clientId))
+            {
+                Console.WriteLine("Invalid Client ID.");
+                return;
+            }
+
+            var client = await _clientService.GetClientByIdAsync(clientId);
+            if (client == null)
+            {
+                Console.WriteLine("Client not found.");
+                return;
+            }
+
+            Console.Write("Do you want to use the current date and time for the order? (y/n): ");
+            string response = Console.ReadLine().ToLower();
+
+            DateTime orderDate;
+            if (response == "y")
+            {
+                orderDate = DateTime.Now;
+            }
+            else
+            {
+                Console.Write("Enter desired order date and time (yyyy-MM-dd HH:mm): ");
+                if (!DateTime.TryParse(Console.ReadLine(), out orderDate))
+                {
+                    Console.WriteLine("Invalid date format. Using current date and time.");
+                    orderDate = DateTime.Now;
+                }
+            }
+
+            var order = new Order(orderDate, client);
+            await _orderService.MakePurchaseAsync(order);
+
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
+            bool continueAddingDetails = true;
+
+            while (continueAddingDetails)
+            {
+                Console.Write("Enter Shoe Model ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int modelId))
+                {
+                    Console.WriteLine("Invalid Shoe Model ID.");
+                    continue;
+                }
+
+                var model = await _modelService.GetModelByIdAsync(modelId);
+                if (model == null)
+                {
+                    Console.WriteLine($"Shoe model with ID {modelId} not found.");
+                    continue;
+                }
+
+                Console.Write("Enter Shoe Size: ");
+                if (!double.TryParse(Console.ReadLine(), out double size))
+                {
+                    Console.WriteLine("Invalid size. Please enter a valid number.");
+                    continue;
+                }
+
+                Console.Write("Enter Quantity: ");
+                if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+                {
+                    Console.WriteLine("Invalid quantity. Please enter a positive integer.");
+                    continue;
+                }
+
+                var shoesForModel = await _shoeService.GetShoesByModelIdAsync(modelId);
+                var existingShoe = shoesForModel.FirstOrDefault(s => s.Size == size);
+                if (existingShoe == null)
+                {
+                    Console.WriteLine($"No shoe found with size {size} for model ID {modelId}.");
+                    continue;
+                }
+
+                var orderDetail = new OrderDetail(quantity, existingShoe, order);
+                orderDetails.Add(orderDetail);
+
+                Console.Write("Do you want to add another shoe to the order? (y/n): ");
+                response = Console.ReadLine().ToLower();
+                continueAddingDetails = response == "y";
+            }
+
+            if (orderDetails.Count == 0)
+            {
+                Console.WriteLine("No order details added.");
+                return;
+            }
+
+            order.OrderDetails = orderDetails;
+            await _orderService.UpdateOrderAsync(order);
+            Console.WriteLine("Order created successfully.");
+        }
+
+        private static async Task CompletePurchase()
+        {
+            Console.Write("Enter Order ID: ");
+            if (!int.TryParse(Console.ReadLine(), out int orderId))
+            {
+                Console.WriteLine("Invalid Order ID.");
+                return;
+            }
+
+            var order = await _orderService.GetPurchaseByIdAsync(orderId, true);
+            if (order == null)
+            {
+                Console.WriteLine($"Order with ID {orderId} not found.");
+                return;
+            }
+
+            foreach (var detail in order.OrderDetails)
+            {
+                var shoe = await _shoeService.GetShoeByIdAsync(detail.ShoeId);
+                if (shoe.Quantity < detail.Quantity)
+                {
+                    Console.WriteLine($"Not enough quantity for shoe ID {shoe.Id} with size {shoe.Size}. Available: {shoe.Quantity}, Requested: {detail.Quantity}");
+                    return;
+                }
+
+                shoe.Quantity -= detail.Quantity;
+                await _shoeService.UpdateShoeAsync(shoe);
+            }
+
+            Console.WriteLine("Purchase completed successfully.");
+        }
+        
+    
 
         /// <summary>
         /// Shows a message in a frame with specified color.

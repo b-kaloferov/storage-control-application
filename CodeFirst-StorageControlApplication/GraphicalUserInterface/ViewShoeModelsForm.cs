@@ -15,9 +15,10 @@ namespace GraphicalUserInterface
         {
             _modelService = modelService;
             InitializeComponent();
+            ViewShoeModelsForm_Load();
         }
 
-        private async Task ViewShoeModelsForm_Load(object sender, EventArgs e)
+        private async Task ViewShoeModelsForm_Load()
         {
             try
             {

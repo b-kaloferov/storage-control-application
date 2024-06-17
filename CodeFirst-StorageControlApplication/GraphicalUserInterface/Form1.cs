@@ -1,11 +1,18 @@
+using ServiceLayer;
+
 namespace GraphicalUserInterface
 {
     public partial class Form1 : Form
     {
-        public Form1()
+
+        private readonly IModelService _modelService;
+
+        public Form1(IModelService modelService)
         {
+            _modelService = modelService;
             InitializeComponent();
         }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -14,9 +21,8 @@ namespace GraphicalUserInterface
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form form2 = new Form();
-            form2.Show();
-            this.Hide();
+            AddShoeModelForm addShoeModelForm = new AddShoeModelForm(_modelService);
+            addShoeModelForm.ShowDialog();
         }
 
         private void label1_Click(object sender, EventArgs e)

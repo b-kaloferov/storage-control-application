@@ -63,6 +63,16 @@ namespace GraphicalUserInterface.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bright_background_image {
+            get {
+                object obj = ResourceManager.GetObject("bright_background_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap image_123650291 {
             get {
                 object obj = ResourceManager.GetObject("image_123650291", resourceCulture);

@@ -46,7 +46,7 @@ namespace GraphicalUserInterface
             dataGridViewShoeModels.RowHeadersWidth = 51;
             dataGridViewShoeModels.Size = new Size(300, 188);
             dataGridViewShoeModels.TabIndex = 0;
-            dataGridViewShoeModels.Click += ViewShoeModelsForm_Load;
+            //dataGridViewShoeModels.Click += ViewShoeModelsForm_Load;
             // 
             // btnClose
             // 

@@ -42,7 +42,8 @@ namespace GraphicalUserInterface
         }
         private void button4_Click(object sender, EventArgs e)
         {
-
+            RemoveShoeModelForm removeShoeModelsForm = new RemoveShoeModelForm(_modelService);
+            removeShoeModelsForm.ShowDialog();
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -50,7 +51,8 @@ namespace GraphicalUserInterface
         }
         private void button6_Click(object sender, EventArgs e)
         {
-
+            ViewShoesOfModelForm viewShoesOfModelForm = new ViewShoesOfModelForm(_modelService);
+            viewShoesOfModelForm.ShowDialog();
         }
         private void button7_Click(object sender, EventArgs e)
         {

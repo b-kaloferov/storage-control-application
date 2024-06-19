@@ -459,28 +459,42 @@ namespace ConsoleUserInterface
 
         public static async Task DiscardShoes()
         {
-            Console.Write("Enter the Model ID of the shoes to discard: ");
-            if (int.TryParse(Console.ReadLine(), out int modelId))
+            Console.Write("Enter Shoe ID to discard: ");
+            if (!int.TryParse(Console.ReadLine(), out int shoeId))
             {
-                Console.Write("Enter the quantity of shoes to discard: ");
-                if (int.TryParse(Console.ReadLine(), out int quantity))
-                {
-                    //await _shoesContext.DiscardShoesAsync(modelId, quantity);
-                    Console.WriteLine($"{quantity} shoes of Model ID {modelId} have been discarded.");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid quantity.");
-                }
+                Console.WriteLine("Invalid Shoe ID.");
+                return;
             }
-            else
+
+            Console.Write("Enter Quantity to discard: ");
+            if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
             {
-                Console.WriteLine("Invalid Model ID.");
+                Console.WriteLine("Invalid Quantity. Please enter a positive integer.");
+                return;
             }
+
+            var shoe = await _shoeService.GetShoeByIdAsync(shoeId);
+            if (shoe == null)
+            {
+                Console.WriteLine($"Shoe with ID {shoeId} not found.");
+                return;
+            }
+
+            if (shoe.Quantity < quantity)
+            {
+                Console.WriteLine($"Not enough quantity for shoe ID {shoe.Id}. Available: {shoe.Quantity}, Requested: {quantity}");
+                return;
+            }
+
+            shoe.Quantity -= quantity;
+            await _shoeService.UpdateShoeAsync(shoe);
+            Console.WriteLine($"Discarded {quantity} of shoe ID {shoe.Id}. Remaining quantity: {shoe.Quantity}");
         }
 
-        //private methods for ManageCustomers()
-        private static async Task AddNewCustomer()
+    }
+
+    //private methods for ManageCustomers()
+    private static async Task AddNewCustomer()
         {
             Console.Write("Enter customer name: ");
             string name = Console.ReadLine();

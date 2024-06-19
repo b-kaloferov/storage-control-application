@@ -460,10 +460,24 @@ namespace ConsoleUserInterface
 
             public static async Task DiscardShoes()
             {
-                Console.Write("Enter Shoe ID to discard: ");
-                if (!int.TryParse(Console.ReadLine(), out int shoeId))
+                Console.Write("Enter Shoe Model ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int modelId))
                 {
-                    Console.WriteLine("Invalid Shoe ID.");
+                    Console.WriteLine("Invalid Shoe Model ID.");
+                    return;
+                }
+
+                var model = await _modelService.GetModelByIdAsync(modelId);
+                if (model == null)
+                {
+                    Console.WriteLine($"Shoe model with ID {modelId} not found.");
+                    return;
+                }
+
+                Console.Write("Enter Shoe Size: ");
+                if (!double.TryParse(Console.ReadLine(), out double size))
+                {
+                    Console.WriteLine("Invalid size. Please enter a valid number.");
                     return;
                 }
 
@@ -474,22 +488,24 @@ namespace ConsoleUserInterface
                     return;
                 }
 
-                var shoe = await _shoeService.GetShoeByIdAsync(shoeId);
-                if (shoe == null)
+                var shoesForModel = await _shoeService.GetShoesByModelIdAsync(modelId);
+                var existingShoe = shoesForModel.FirstOrDefault(s => s.Size == size);
+                if (existingShoe == null)
                 {
-                    Console.WriteLine($"Shoe with ID {shoeId} not found.");
+                    Console.WriteLine($"No shoe found with size {size} for model ID {modelId}.");
                     return;
                 }
 
-                if (shoe.Quantity < quantity)
+                if (existingShoe.Quantity < quantity)
                 {
-                    Console.WriteLine($"Not enough quantity for shoe ID {shoe.Id}. Available: {shoe.Quantity}, Requested: {quantity}");
+                    Console.WriteLine($"Not enough quantity for shoe ID {existingShoe.Id} with size {size}. Available: {existingShoe.Quantity}, Requested: {quantity}");
                     return;
                 }
 
-                shoe.Quantity -= quantity;
-                await _shoeService.UpdateShoeAsync(shoe);
-                Console.WriteLine($"Discarded {quantity} of shoe ID {shoe.Id}. Remaining quantity: {shoe.Quantity}");
+                existingShoe.Quantity -= quantity;
+                await _shoeService.UpdateShoeAsync(existingShoe);
+                Console.WriteLine($"Discarded {quantity} of shoe ID {existingShoe.Id} with size {size}. Remaining quantity: {existingShoe.Quantity}");
+        
             }
 
         

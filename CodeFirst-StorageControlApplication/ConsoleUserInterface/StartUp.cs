@@ -88,7 +88,7 @@ namespace ConsoleUserInterface
                             break;
                         case "10":
                             PrintOption("Discard Shoes selected.");
-                            // StorageConsoleManager.DiscardShoes();
+                            await StorageConsoleManager.DiscardShoes();
                             break;
                         case "0":
                             PrintOption("Exiting the program...");

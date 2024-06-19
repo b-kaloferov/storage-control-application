@@ -6,10 +6,12 @@ namespace GraphicalUserInterface
     {
 
         private readonly IModelService _modelService;
+        private readonly IClientService _clientService;
 
-        public Form1(IModelService modelService)
+        public Form1(IModelService modelService, IClientService clientService)
         {
             _modelService = modelService;
+            _clientService = clientService;
             InitializeComponent();
         }
         
@@ -56,7 +58,8 @@ namespace GraphicalUserInterface
         }
         private void button7_Click(object sender, EventArgs e)
         {
-
+            ManageCustomersForm manageCustomersForm = new ManageCustomersForm(_clientService);
+            manageCustomersForm.ShowDialog();
         }
 
         private void button8_Click(object sender, EventArgs e)

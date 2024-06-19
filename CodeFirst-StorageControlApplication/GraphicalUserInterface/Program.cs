@@ -33,7 +33,7 @@ namespace GraphicalUserInterface
 
                 var ordersContext = new OrdersContext(storageDbContext);
                 var orderService = new OrderService(ordersContext, orderDetailsContext, clientsContext, shoesContext);
-                Application.Run(new Form1(modelService));
+                Application.Run(new Form1(modelService, clientService));
             }  
         }
     }

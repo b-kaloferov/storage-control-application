@@ -384,7 +384,7 @@ namespace ConsoleUserInterface
                 {
                     case "1":
                         await AddNewCustomer();
-                        break;               
+                        break;
                     case "2":
                         await FindCustomerById();
                         break;
@@ -413,88 +413,89 @@ namespace ConsoleUserInterface
             }
         }
 
-        public static async Task ManagePurchase()
-        {
-            Console.WriteLine("Select an option:");
-            Console.WriteLine("1. Create Purchase");
-            Console.WriteLine("2. Complete Purchase");
-            Console.Write("Enter your choice: ");
 
-            if (int.TryParse(Console.ReadLine(), out int choice))
+            public static async Task ManagePurchase()
             {
-                switch (choice)
+                Console.WriteLine("Select an option:");
+                Console.WriteLine("1. Create Purchase");
+                Console.WriteLine("2. Complete Purchase");
+                Console.Write("Enter your choice: ");
+
+                if (int.TryParse(Console.ReadLine(), out int choice))
                 {
-                    case 1:
-                        await CreatePurchase();
-                        break;
-                    case 2:
-                        await CompletePurchase();
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice.");
-                        break;
+                    switch (choice)
+                    {
+                        case 1:
+                            await CreatePurchase();
+                            break;
+                        case 2:
+                            await CompletePurchase();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
                 }
             }
-            else
-            {
-                Console.WriteLine("Invalid input. Please enter a number.");
-            }
-        }
 
-        public static async Task ViewPurchasesHistory()
-        {
-
-            var orders = await _orderService.GetAllPurchasesHistoryAsync();
-            foreach (var order in orders)
+            public static async Task ViewPurchasesHistory()
             {
-                Console.WriteLine($"Order ID: {order.Id}, Order Date: {order.OrderDate}, Client ID: {order.ClientId}");
-                foreach (var detail in order.OrderDetails)
+
+                var orders = await _orderService.GetAllPurchasesHistoryAsync();
+                foreach (var order in orders)
                 {
-                    Console.WriteLine($"Shoe ID: {detail.ShoeId}, Size: {detail.Shoe.Size}, Quantity: {detail.Quantity}");
+                    Console.WriteLine($"Order ID: {order.Id}, Order Date: {order.OrderDate}, Client ID: {order.ClientId}");
+                    foreach (var detail in order.OrderDetails)
+                    {
+                        Console.WriteLine($"Shoe ID: {detail.ShoeId}, Size: {detail.Shoe.Size}, Quantity: {detail.Quantity}");
+                    }
                 }
+
+
             }
-  
 
-        }
-
-        public static async Task DiscardShoes()
-        {
-            Console.Write("Enter Shoe ID to discard: ");
-            if (!int.TryParse(Console.ReadLine(), out int shoeId))
+            public static async Task DiscardShoes()
             {
-                Console.WriteLine("Invalid Shoe ID.");
-                return;
+                Console.Write("Enter Shoe ID to discard: ");
+                if (!int.TryParse(Console.ReadLine(), out int shoeId))
+                {
+                    Console.WriteLine("Invalid Shoe ID.");
+                    return;
+                }
+
+                Console.Write("Enter Quantity to discard: ");
+                if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+                {
+                    Console.WriteLine("Invalid Quantity. Please enter a positive integer.");
+                    return;
+                }
+
+                var shoe = await _shoeService.GetShoeByIdAsync(shoeId);
+                if (shoe == null)
+                {
+                    Console.WriteLine($"Shoe with ID {shoeId} not found.");
+                    return;
+                }
+
+                if (shoe.Quantity < quantity)
+                {
+                    Console.WriteLine($"Not enough quantity for shoe ID {shoe.Id}. Available: {shoe.Quantity}, Requested: {quantity}");
+                    return;
+                }
+
+                shoe.Quantity -= quantity;
+                await _shoeService.UpdateShoeAsync(shoe);
+                Console.WriteLine($"Discarded {quantity} of shoe ID {shoe.Id}. Remaining quantity: {shoe.Quantity}");
             }
 
-            Console.Write("Enter Quantity to discard: ");
-            if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
-            {
-                Console.WriteLine("Invalid Quantity. Please enter a positive integer.");
-                return;
-            }
+        
 
-            var shoe = await _shoeService.GetShoeByIdAsync(shoeId);
-            if (shoe == null)
-            {
-                Console.WriteLine($"Shoe with ID {shoeId} not found.");
-                return;
-            }
-
-            if (shoe.Quantity < quantity)
-            {
-                Console.WriteLine($"Not enough quantity for shoe ID {shoe.Id}. Available: {shoe.Quantity}, Requested: {quantity}");
-                return;
-            }
-
-            shoe.Quantity -= quantity;
-            await _shoeService.UpdateShoeAsync(shoe);
-            Console.WriteLine($"Discarded {quantity} of shoe ID {shoe.Id}. Remaining quantity: {shoe.Quantity}");
-        }
-
-    }
-
-    //private methods for ManageCustomers()
-    private static async Task AddNewCustomer()
+        //private methods for ManageCustomers()
+        private static async Task AddNewCustomer()
         {
             Console.Write("Enter customer name: ");
             string name = Console.ReadLine();
@@ -625,7 +626,7 @@ namespace ConsoleUserInterface
                                 break;
                         }
                     }
-                    
+
                     await _clientService.UpdateClientAsync(client);
                     Console.WriteLine("Customer updated successfully.");
 
@@ -789,8 +790,8 @@ namespace ConsoleUserInterface
 
             Console.WriteLine("Purchase completed successfully.");
         }
-        
-    
+
+
 
         /// <summary>
         /// Shows a message in a frame with specified color.
@@ -814,5 +815,6 @@ namespace ConsoleUserInterface
 
             Console.ResetColor(); // sets the color back to default
         }
-    }
+    }   
+    
 }

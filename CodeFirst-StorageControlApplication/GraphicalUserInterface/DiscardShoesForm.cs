@@ -10,6 +10,7 @@ namespace GraphicalUserInterface
     public partial class DiscardShoesForm : Form
     {
         private readonly IModelService _modelService;
+        private Label label1;
         private readonly IShoeService _shoeService;
 
         public DiscardShoesForm(IModelService modelService, IShoeService shoeService)
@@ -21,62 +22,72 @@ namespace GraphicalUserInterface
 
         private void InitializeComponent()
         {
-            this.txtModelId = new System.Windows.Forms.TextBox();
-            this.txtSize = new System.Windows.Forms.TextBox();
-            this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.btnDiscard = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-
+            txtModelId = new TextBox();
+            txtSize = new TextBox();
+            txtQuantity = new TextBox();
+            btnDiscard = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // txtModelId
             // 
-            this.txtModelId.Location = new System.Drawing.Point(50, 50);
-            this.txtModelId.Name = "txtModelId";
-            this.txtModelId.Size = new System.Drawing.Size(150, 22);
-            this.txtModelId.TabIndex = 0;
-            this.txtModelId.PlaceholderText = "Model ID";
-
+            txtModelId.Location = new Point(96, 98);
+            txtModelId.Name = "txtModelId";
+            txtModelId.PlaceholderText = "Model ID";
+            txtModelId.Size = new Size(150, 27);
+            txtModelId.TabIndex = 0;
             // 
             // txtSize
             // 
-            this.txtSize.Location = new System.Drawing.Point(50, 100);
-            this.txtSize.Name = "txtSize";
-            this.txtSize.Size = new System.Drawing.Size(150, 22);
-            this.txtSize.TabIndex = 1;
-            this.txtSize.PlaceholderText = "Size";
-
+            txtSize.Location = new Point(96, 148);
+            txtSize.Name = "txtSize";
+            txtSize.PlaceholderText = "Size";
+            txtSize.Size = new Size(150, 27);
+            txtSize.TabIndex = 1;
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(50, 150);
-            this.txtQuantity.Name = "txtQuantity";
-            this.txtQuantity.Size = new System.Drawing.Size(150, 22);
-            this.txtQuantity.TabIndex = 2;
-            this.txtQuantity.PlaceholderText = "Quantity";
-
+            txtQuantity.Location = new Point(96, 198);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.PlaceholderText = "Quantity";
+            txtQuantity.Size = new Size(150, 27);
+            txtQuantity.TabIndex = 2;
             // 
             // btnDiscard
             // 
-            this.btnDiscard.Location = new System.Drawing.Point(50, 200);
-            this.btnDiscard.Name = "btnDiscard";
-            this.btnDiscard.Size = new System.Drawing.Size(150, 50);
-            this.btnDiscard.TabIndex = 3;
-            this.btnDiscard.Text = "Discard Shoes";
-            this.btnDiscard.UseVisualStyleBackColor = true;
-            this.btnDiscard.Click += new System.EventHandler(this.btnDiscard_Click);
-
+            btnDiscard.BackColor = Color.DodgerBlue;
+            btnDiscard.Location = new Point(96, 248);
+            btnDiscard.Name = "btnDiscard";
+            btnDiscard.Size = new Size(150, 49);
+            btnDiscard.TabIndex = 3;
+            btnDiscard.Text = "Discard Shoes";
+            btnDiscard.UseVisualStyleBackColor = false;
+            btnDiscard.Click += btnDiscard_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(63, 41);
+            label1.Name = "label1";
+            label1.Size = new Size(224, 35);
+            label1.TabIndex = 4;
+            label1.Text = "Discard Shoes";
             // 
             // DiscardShoesForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.txtModelId);
-            this.Controls.Add(this.txtSize);
-            this.Controls.Add(this.txtQuantity);
-            this.Controls.Add(this.btnDiscard);
-            this.Name = "DiscardShoesForm";
-            this.Text = "Discard Shoes";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            BackgroundImage = Properties.Resources.bright_background_image;
+            ClientSize = new Size(350, 341);
+            Controls.Add(label1);
+            Controls.Add(txtModelId);
+            Controls.Add(txtSize);
+            Controls.Add(txtQuantity);
+            Controls.Add(btnDiscard);
+            Name = "DiscardShoesForm";
+            Text = "Discard Shoes";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private async void btnDiscard_Click(object sender, EventArgs e)

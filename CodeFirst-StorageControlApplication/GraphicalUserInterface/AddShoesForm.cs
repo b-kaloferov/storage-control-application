@@ -11,6 +11,7 @@ namespace GraphicalUserInterface
     public partial class AddShoesForm : Form
     {
         private readonly IModelService _modelService;
+        private Label label1;
         private readonly IShoeService _shoeService;
 
         public AddShoesForm(IModelService modelService, IShoeService shoeService)
@@ -22,62 +23,72 @@ namespace GraphicalUserInterface
 
         private void InitializeComponent()
         {
-            this.txtModelId = new System.Windows.Forms.TextBox();
-            this.txtSize = new System.Windows.Forms.TextBox();
-            this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-
+            txtModelId = new TextBox();
+            txtSize = new TextBox();
+            txtQuantity = new TextBox();
+            btnAdd = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // txtModelId
             // 
-            this.txtModelId.Location = new System.Drawing.Point(50, 50);
-            this.txtModelId.Name = "txtModelId";
-            this.txtModelId.Size = new System.Drawing.Size(150, 22);
-            this.txtModelId.TabIndex = 0;
-            this.txtModelId.PlaceholderText = "Model ID";
-
+            txtModelId.Location = new Point(92, 111);
+            txtModelId.Name = "txtModelId";
+            txtModelId.PlaceholderText = "Model ID";
+            txtModelId.Size = new Size(150, 27);
+            txtModelId.TabIndex = 0;
             // 
             // txtSize
             // 
-            this.txtSize.Location = new System.Drawing.Point(50, 100);
-            this.txtSize.Name = "txtSize";
-            this.txtSize.Size = new System.Drawing.Size(150, 22);
-            this.txtSize.TabIndex = 1;
-            this.txtSize.PlaceholderText = "Size";
-
+            txtSize.Location = new Point(92, 161);
+            txtSize.Name = "txtSize";
+            txtSize.PlaceholderText = "Size";
+            txtSize.Size = new Size(150, 27);
+            txtSize.TabIndex = 1;
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(50, 150);
-            this.txtQuantity.Name = "txtQuantity";
-            this.txtQuantity.Size = new System.Drawing.Size(150, 22);
-            this.txtQuantity.TabIndex = 2;
-            this.txtQuantity.PlaceholderText = "Quantity";
-
+            txtQuantity.Location = new Point(92, 211);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.PlaceholderText = "Quantity";
+            txtQuantity.Size = new Size(150, 27);
+            txtQuantity.TabIndex = 2;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(50, 200);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(150, 50);
-            this.btnAdd.TabIndex = 3;
-            this.btnAdd.Text = "Add Shoes";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-
+            btnAdd.BackColor = Color.DodgerBlue;
+            btnAdd.Location = new Point(92, 273);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(150, 50);
+            btnAdd.TabIndex = 3;
+            btnAdd.Text = "Add Shoes";
+            btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(82, 35);
+            label1.Name = "label1";
+            label1.Size = new Size(170, 35);
+            label1.TabIndex = 4;
+            label1.Text = "Add Shoes";
             // 
             // AddShoesForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.txtModelId);
-            this.Controls.Add(this.txtSize);
-            this.Controls.Add(this.txtQuantity);
-            this.Controls.Add(this.btnAdd);
-            this.Name = "AddShoesForm";
-            this.Text = "Add Shoes";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            BackgroundImage = Properties.Resources.bright_background_image;
+            ClientSize = new Size(340, 370);
+            Controls.Add(label1);
+            Controls.Add(txtModelId);
+            Controls.Add(txtSize);
+            Controls.Add(txtQuantity);
+            Controls.Add(btnAdd);
+            Name = "AddShoesForm";
+            Text = "Add Shoes";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)

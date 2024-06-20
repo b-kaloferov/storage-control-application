@@ -30,6 +30,7 @@ namespace GraphicalUserInterface
             // labelModelId
             // 
             labelModelId.AutoSize = true;
+            labelModelId.BackColor = Color.Transparent;
             labelModelId.Location = new Point(12, 15);
             labelModelId.Name = "labelModelId";
             labelModelId.Size = new Size(74, 20);
@@ -60,6 +61,7 @@ namespace GraphicalUserInterface
             labelModelDetails.Name = "labelModelDetails";
             labelModelDetails.Size = new Size(0, 20);
             labelModelDetails.TabIndex = 3;
+            labelModelDetails.BackColor = Color.Transparent;
             // 
             // buttonDelete
             // 

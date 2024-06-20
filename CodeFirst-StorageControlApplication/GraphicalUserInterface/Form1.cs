@@ -42,7 +42,8 @@ namespace GraphicalUserInterface
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            UpdateShoeModelForm updateShoeModelForm = new UpdateShoeModelForm(_modelService);
+            updateShoeModelForm.ShowDialog();
         }
         private void button4_Click(object sender, EventArgs e)
         {

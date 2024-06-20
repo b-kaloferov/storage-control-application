@@ -8,12 +8,14 @@ namespace GraphicalUserInterface
         private readonly IModelService _modelService;
         private readonly IClientService _clientService;
         private readonly IShoeService _shoeService;
+        private readonly IOrderService _orderService;
 
-        public Form1(IModelService modelService, IClientService clientService, IShoeService shoeService)
+        public Form1(IModelService modelService, IClientService clientService, IShoeService shoeService, IOrderService orderService)
         {
             _modelService = modelService;
             _clientService = clientService;
             _shoeService = shoeService;
+            _orderService = orderService;
             InitializeComponent();
         }
         
@@ -68,7 +70,8 @@ namespace GraphicalUserInterface
 
         private void button8_Click(object sender, EventArgs e)
         {
-
+            ManagePurchaseForm managePurchaseForm = new ManagePurchaseForm(_clientService, _modelService, _orderService, _shoeService);
+            managePurchaseForm.ShowDialog();
         }
 
         private void button9_Click(object sender, EventArgs e)

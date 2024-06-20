@@ -19,80 +19,102 @@ namespace GraphicalUserInterface
 
         private void InitializeComponent()
         {
-            this.btnAddCustomer = new System.Windows.Forms.Button();
-            this.btnFindCustomerById = new System.Windows.Forms.Button();
-            this.btnViewAllCustomers = new System.Windows.Forms.Button();
-            this.btnUpdateCustomer = new System.Windows.Forms.Button();
-            this.btnRemoveCustomer = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            btnAddCustomer = new Button();
+            btnFindCustomerById = new Button();
+            btnViewAllCustomers = new Button();
+            btnUpdateCustomer = new Button();
+            btnRemoveCustomer = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // btnAddCustomer
             // 
-            this.btnAddCustomer.Location = new System.Drawing.Point(50, 30);
-            this.btnAddCustomer.Name = "btnAddCustomer";
-            this.btnAddCustomer.Size = new System.Drawing.Size(200, 50);
-            this.btnAddCustomer.TabIndex = 0;
-            this.btnAddCustomer.Text = "Add New Customer";
-            this.btnAddCustomer.UseVisualStyleBackColor = true;
-            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
+            btnAddCustomer.BackColor = Color.DodgerBlue;
+            btnAddCustomer.Location = new Point(70, 155);
+            btnAddCustomer.Name = "btnAddCustomer";
+            btnAddCustomer.Size = new Size(200, 50);
+            btnAddCustomer.TabIndex = 0;
+            btnAddCustomer.Text = "Add New Customer";
+            btnAddCustomer.UseVisualStyleBackColor = false;
+            btnAddCustomer.Click += btnAddCustomer_Click;
             // 
             // btnFindCustomerById
             // 
-            this.btnFindCustomerById.Location = new System.Drawing.Point(50, 90);
-            this.btnFindCustomerById.Name = "btnFindCustomerById";
-            this.btnFindCustomerById.Size = new System.Drawing.Size(200, 50);
-            this.btnFindCustomerById.TabIndex = 1;
-            this.btnFindCustomerById.Text = "Find Customer by ID";
-            this.btnFindCustomerById.UseVisualStyleBackColor = true;
-            this.btnFindCustomerById.Click += new System.EventHandler(this.btnFindCustomerById_Click);
+            btnFindCustomerById.BackColor = Color.DodgerBlue;
+            btnFindCustomerById.Location = new Point(70, 215);
+            btnFindCustomerById.Name = "btnFindCustomerById";
+            btnFindCustomerById.Size = new Size(200, 50);
+            btnFindCustomerById.TabIndex = 1;
+            btnFindCustomerById.Text = "Find Customer by ID";
+            btnFindCustomerById.UseVisualStyleBackColor = false;
+            btnFindCustomerById.Click += btnFindCustomerById_Click;
             // 
             // btnViewAllCustomers
             // 
-            this.btnViewAllCustomers.Location = new System.Drawing.Point(50, 150);
-            this.btnViewAllCustomers.Name = "btnViewAllCustomers";
-            this.btnViewAllCustomers.Size = new System.Drawing.Size(200, 50);
-            this.btnViewAllCustomers.TabIndex = 2;
-            this.btnViewAllCustomers.Text = "View All Customers";
-            this.btnViewAllCustomers.UseVisualStyleBackColor = true;
-            this.btnViewAllCustomers.Click += new System.EventHandler(this.btnViewAllCustomers_Click);
+            btnViewAllCustomers.BackColor = Color.DodgerBlue;
+            btnViewAllCustomers.Location = new Point(70, 275);
+            btnViewAllCustomers.Name = "btnViewAllCustomers";
+            btnViewAllCustomers.Size = new Size(200, 50);
+            btnViewAllCustomers.TabIndex = 2;
+            btnViewAllCustomers.Text = "View All Customers";
+            btnViewAllCustomers.UseVisualStyleBackColor = false;
+            btnViewAllCustomers.Click += btnViewAllCustomers_Click;
             // 
             // btnUpdateCustomer
             // 
-            this.btnUpdateCustomer.Location = new System.Drawing.Point(50, 210);
-            this.btnUpdateCustomer.Name = "btnUpdateCustomer";
-            this.btnUpdateCustomer.Size = new System.Drawing.Size(200, 50);
-            this.btnUpdateCustomer.TabIndex = 3;
-            this.btnUpdateCustomer.Text = "Update Customer";
-            this.btnUpdateCustomer.UseVisualStyleBackColor = true;
-            this.btnUpdateCustomer.Click += new System.EventHandler(this.btnUpdateCustomer_Click);
+            btnUpdateCustomer.BackColor = Color.DodgerBlue;
+            btnUpdateCustomer.Location = new Point(70, 335);
+            btnUpdateCustomer.Name = "btnUpdateCustomer";
+            btnUpdateCustomer.Size = new Size(200, 50);
+            btnUpdateCustomer.TabIndex = 3;
+            btnUpdateCustomer.Text = "Update Customer";
+            btnUpdateCustomer.UseVisualStyleBackColor = false;
+            btnUpdateCustomer.Click += btnUpdateCustomer_Click;
             // 
             // btnRemoveCustomer
             // 
-            this.btnRemoveCustomer.Location = new System.Drawing.Point(50, 270);
-            this.btnRemoveCustomer.Name = "btnRemoveCustomer";
-            this.btnRemoveCustomer.Size = new System.Drawing.Size(200, 50);
-            this.btnRemoveCustomer.TabIndex = 4;
-            this.btnRemoveCustomer.Text = "Remove Customer";
-            this.btnRemoveCustomer.UseVisualStyleBackColor = true;
-            this.btnRemoveCustomer.Click += new System.EventHandler(this.btnRemoveCustomer_Click);
+            btnRemoveCustomer.BackColor = Color.DodgerBlue;
+            btnRemoveCustomer.Location = new Point(70, 395);
+            btnRemoveCustomer.Name = "btnRemoveCustomer";
+            btnRemoveCustomer.Size = new Size(200, 50);
+            btnRemoveCustomer.TabIndex = 4;
+            btnRemoveCustomer.Text = "Remove Customer";
+            btnRemoveCustomer.UseVisualStyleBackColor = false;
+            btnRemoveCustomer.Click += btnRemoveCustomer_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(32, 51);
+            label1.Name = "label1";
+            label1.Size = new Size(292, 35);
+            label1.TabIndex = 5;
+            label1.Text = "Manage Customers";
             // 
             // ManageCustomersForm
             // 
-            this.ClientSize = new System.Drawing.Size(300, 350);
-            this.Controls.Add(this.btnRemoveCustomer);
-            this.Controls.Add(this.btnUpdateCustomer);
-            this.Controls.Add(this.btnViewAllCustomers);
-            this.Controls.Add(this.btnFindCustomerById);
-            this.Controls.Add(this.btnAddCustomer);
-            this.Name = "ManageCustomersForm";
-            this.Text = "Customer Management";
-            this.ResumeLayout(false);
+            BackgroundImage = Properties.Resources.bright_background_image;
+            ClientSize = new Size(347, 513);
+            Controls.Add(label1);
+            Controls.Add(btnRemoveCustomer);
+            Controls.Add(btnUpdateCustomer);
+            Controls.Add(btnViewAllCustomers);
+            Controls.Add(btnFindCustomerById);
+            Controls.Add(btnAddCustomer);
+            MaximizeBox = false;
+            Name = "ManageCustomersForm";
+            Text = "Customer Management";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private System.Windows.Forms.Button btnAddCustomer;
         private System.Windows.Forms.Button btnFindCustomerById;
         private System.Windows.Forms.Button btnViewAllCustomers;
         private System.Windows.Forms.Button btnUpdateCustomer;
+        private Label label1;
         private System.Windows.Forms.Button btnRemoveCustomer;
 
         private void btnAddCustomer_Click(object sender, EventArgs e)

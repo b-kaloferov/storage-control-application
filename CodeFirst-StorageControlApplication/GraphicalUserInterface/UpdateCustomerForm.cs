@@ -27,11 +27,12 @@ namespace GraphicalUserInterface
             txtEmail = new TextBox();
             txtPhoneNumber = new TextBox();
             btnSave = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // txtClientId
             // 
-            txtClientId.Location = new Point(50, 30);
+            txtClientId.Location = new Point(92, 170);
             txtClientId.Name = "txtClientId";
             txtClientId.PlaceholderText = "Enter Customer ID";
             txtClientId.Size = new Size(200, 27);
@@ -39,17 +40,18 @@ namespace GraphicalUserInterface
             // 
             // btnFind
             // 
-            btnFind.Location = new Point(50, 70);
+            btnFind.BackColor = Color.DodgerBlue;
+            btnFind.Location = new Point(92, 210);
             btnFind.Name = "btnFind";
             btnFind.Size = new Size(200, 30);
             btnFind.TabIndex = 1;
             btnFind.Text = "Find";
-            btnFind.UseVisualStyleBackColor = true;
+            btnFind.UseVisualStyleBackColor = false;
             btnFind.Click += btnFind_Click;
             // 
             // txtName
             // 
-            txtName.Location = new Point(50, 110);
+            txtName.Location = new Point(92, 250);
             txtName.Name = "txtName";
             txtName.PlaceholderText = "Enter new name";
             txtName.Size = new Size(200, 27);
@@ -57,7 +59,7 @@ namespace GraphicalUserInterface
             // 
             // txtAddress
             // 
-            txtAddress.Location = new Point(50, 150);
+            txtAddress.Location = new Point(92, 290);
             txtAddress.Name = "txtAddress";
             txtAddress.PlaceholderText = "Enter new address";
             txtAddress.Size = new Size(200, 27);
@@ -65,7 +67,7 @@ namespace GraphicalUserInterface
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(50, 190);
+            txtEmail.Location = new Point(92, 330);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "Enter new email";
             txtEmail.Size = new Size(200, 27);
@@ -73,7 +75,7 @@ namespace GraphicalUserInterface
             // 
             // txtPhoneNumber
             // 
-            txtPhoneNumber.Location = new Point(50, 230);
+            txtPhoneNumber.Location = new Point(92, 370);
             txtPhoneNumber.Name = "txtPhoneNumber";
             txtPhoneNumber.PlaceholderText = "Enter new phone number";
             txtPhoneNumber.Size = new Size(200, 27);
@@ -81,18 +83,31 @@ namespace GraphicalUserInterface
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(50, 270);
+            btnSave.BackColor = Color.DodgerBlue;
+            btnSave.Location = new Point(92, 410);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(200, 30);
             btnSave.TabIndex = 6;
             btnSave.Text = "Save";
-            btnSave.UseVisualStyleBackColor = true;
+            btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(64, 61);
+            label1.Name = "label1";
+            label1.Size = new Size(265, 35);
+            label1.TabIndex = 7;
+            label1.Text = "Update Customer";
             // 
             // UpdateCustomerForm
             // 
             BackgroundImage = Properties.Resources.bright_background_image;
-            ClientSize = new Size(1065, 495);
+            ClientSize = new Size(392, 495);
+            Controls.Add(label1);
             Controls.Add(btnSave);
             Controls.Add(txtPhoneNumber);
             Controls.Add(txtEmail);
@@ -113,6 +128,7 @@ namespace GraphicalUserInterface
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtPhoneNumber;
         private System.Windows.Forms.Button btnSave;
+        private Label label1;
         private Client _client;
 
         private async void btnFind_Click(object sender, EventArgs e)

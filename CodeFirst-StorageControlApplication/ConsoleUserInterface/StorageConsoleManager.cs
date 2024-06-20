@@ -182,7 +182,7 @@ namespace ConsoleUserInterface
                     }
 
                     await _modelService.UpdateModelAsync(modelToUpdate);
-                    Console.WriteLine("Shoe model updated successfully.");
+                    PrintOption("Shoe model updated successfully.", true);
                 }
                 else
                 {
@@ -218,7 +218,7 @@ namespace ConsoleUserInterface
                     if (confirmation.ToLower() == "y")
                     {
                         await _modelService.DeleteModelAsync(modelId);
-                        Console.WriteLine("Shoe model deleted successfully.");
+                        PrintOption("Shoe model deleted successfully.", true);
                     }
                     else
                     {
@@ -314,7 +314,7 @@ namespace ConsoleUserInterface
 
                     // Update the model in the database
                     await _modelService.UpdateModelAsync(modelToAddShoes, true);
-                    Console.WriteLine("Shoes added successfully.");
+                    PrintOption("Shoes added successfully.", true);
                 }
                 else
                 {
@@ -528,7 +528,7 @@ namespace ConsoleUserInterface
             var newClient = new Client(name, address, email, phoneNumber);
 
             await _clientService.CreateClientAsync(newClient);
-            Console.WriteLine("Customer added successfully.");
+            PrintOption("Customer added successfully.", true);
         }
 
         private static async Task FindCustomerById()
@@ -644,7 +644,7 @@ namespace ConsoleUserInterface
                     }
 
                     await _clientService.UpdateClientAsync(client);
-                    Console.WriteLine("Customer updated successfully.");
+                    PrintOption("Customer updated successfully.", true);
 
                 }
                 else
@@ -664,7 +664,7 @@ namespace ConsoleUserInterface
             if (int.TryParse(Console.ReadLine(), out int clientId))
             {
                 await _clientService.DeleteClientAsync(clientId);
-                Console.WriteLine("Customer removed successfully.");
+                PrintOption("Customer removed successfully.", true);
             }
             else
             {
@@ -770,7 +770,7 @@ namespace ConsoleUserInterface
 
             order.OrderDetails = orderDetails;
             await _orderService.UpdateOrderAsync(order);
-            Console.WriteLine("Order created successfully.");
+            PrintOption("Order created successfully.", true);
         }
 
         private static async Task CompletePurchase()
@@ -804,7 +804,7 @@ namespace ConsoleUserInterface
                 await _shoeService.UpdateShoeAsync(shoe);
             }
 
-            Console.WriteLine("Purchase completed successfully.");
+            PrintOption("Purchase completed successfully.", true);
         }
 
 

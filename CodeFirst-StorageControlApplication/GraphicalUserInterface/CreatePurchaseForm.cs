@@ -2,9 +2,13 @@
 using ServiceLayer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GraphicalUserInterface
 {
@@ -13,6 +17,7 @@ namespace GraphicalUserInterface
         private IClientService _clientService;
         private IModelService _modelService;
         private IOrderService _orderService;
+        private Label label1;
         private IShoeService _shoeService;
 
         public CreatePurchaseForm(IClientService clientService, IModelService modelService, IOrderService orderService, IShoeService shoeService)
@@ -111,107 +116,119 @@ namespace GraphicalUserInterface
 
         private void InitializeComponent()
         {
-            this.txtClientId = new System.Windows.Forms.TextBox();
-            this.txtOrderDate = new System.Windows.Forms.TextBox();
-            this.rdoUseCurrentDate = new System.Windows.Forms.RadioButton();
-            this.rdoEnterDate = new System.Windows.Forms.RadioButton();
-            this.txtModelId = new System.Windows.Forms.TextBox();
-            this.txtShoeSize = new System.Windows.Forms.TextBox();
-            this.txtQuantity = new System.Windows.Forms.TextBox();
-            this.btnSubmit = new System.Windows.Forms.Button();
-
+            txtClientId = new TextBox();
+            txtOrderDate = new TextBox();
+            rdoUseCurrentDate = new RadioButton();
+            rdoEnterDate = new RadioButton();
+            txtModelId = new TextBox();
+            txtShoeSize = new TextBox();
+            txtQuantity = new TextBox();
+            btnSubmit = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // txtClientId
             // 
-            this.txtClientId.Location = new System.Drawing.Point(30, 30);
-            this.txtClientId.Name = "txtClientId";
-            this.txtClientId.Size = new System.Drawing.Size(200, 20);
-            this.txtClientId.TabIndex = 0;
-            this.txtClientId.PlaceholderText = "Client ID";
-
-            // 
-            // rdoUseCurrentDate
-            // 
-            this.rdoUseCurrentDate.Location = new System.Drawing.Point(30, 60);
-            this.rdoUseCurrentDate.Name = "rdoUseCurrentDate";
-            this.rdoUseCurrentDate.Size = new System.Drawing.Size(200, 20);
-            this.rdoUseCurrentDate.TabIndex = 1;
-            this.rdoUseCurrentDate.Text = "Use current date and time";
-            this.rdoUseCurrentDate.CheckedChanged += new EventHandler(RadioButton_CheckedChanged);
-
-            // 
-            // rdoEnterDate
-            // 
-            this.rdoEnterDate.Location = new System.Drawing.Point(30, 90);
-            this.rdoEnterDate.Name = "rdoEnterDate";
-            this.rdoEnterDate.Size = new System.Drawing.Size(200, 20);
-            this.rdoEnterDate.TabIndex = 2;
-            this.rdoEnterDate.Text = "Enter desired date and time";
-            this.rdoEnterDate.CheckedChanged += new EventHandler(RadioButton_CheckedChanged);
-
+            txtClientId.Location = new Point(63, 96);
+            txtClientId.Name = "txtClientId";
+            txtClientId.PlaceholderText = "Client ID";
+            txtClientId.Size = new Size(225, 27);
+            txtClientId.TabIndex = 0;
             // 
             // txtOrderDate
             // 
-            this.txtOrderDate.Location = new System.Drawing.Point(30, 120);
-            this.txtOrderDate.Name = "txtOrderDate";
-            this.txtOrderDate.Size = new System.Drawing.Size(200, 20);
-            this.txtOrderDate.TabIndex = 3;
-            this.txtOrderDate.PlaceholderText = "yyyy-MM-dd HH:mm";
-
+            txtOrderDate.Location = new Point(63, 186);
+            txtOrderDate.Name = "txtOrderDate";
+            txtOrderDate.PlaceholderText = "yyyy-MM-dd HH:mm";
+            txtOrderDate.Size = new Size(225, 27);
+            txtOrderDate.TabIndex = 3;
+            // 
+            // rdoUseCurrentDate
+            // 
+            rdoUseCurrentDate.BackColor = Color.Transparent;
+            rdoUseCurrentDate.Location = new Point(63, 126);
+            rdoUseCurrentDate.Name = "rdoUseCurrentDate";
+            rdoUseCurrentDate.Size = new Size(225, 27);
+            rdoUseCurrentDate.TabIndex = 1;
+            rdoUseCurrentDate.Text = "Use current date and time";
+            rdoUseCurrentDate.UseVisualStyleBackColor = false;
+            rdoUseCurrentDate.CheckedChanged += RadioButton_CheckedChanged;
+            // 
+            // rdoEnterDate
+            // 
+            rdoEnterDate.BackColor = Color.Transparent;
+            rdoEnterDate.Location = new Point(63, 156);
+            rdoEnterDate.Name = "rdoEnterDate";
+            rdoEnterDate.Size = new Size(225, 27);
+            rdoEnterDate.TabIndex = 2;
+            rdoEnterDate.Text = "Enter desired date and time";
+            rdoEnterDate.UseVisualStyleBackColor = false;
+            rdoEnterDate.CheckedChanged += RadioButton_CheckedChanged;
             // 
             // txtModelId
             // 
-            this.txtModelId.Location = new System.Drawing.Point(30, 150);
-            this.txtModelId.Name = "txtModelId";
-            this.txtModelId.Size = new System.Drawing.Size(200, 20);
-            this.txtModelId.TabIndex = 4;
-            this.txtModelId.PlaceholderText = "Model ID";
-
+            txtModelId.Location = new Point(63, 216);
+            txtModelId.Name = "txtModelId";
+            txtModelId.PlaceholderText = "Model ID";
+            txtModelId.Size = new Size(225, 27);
+            txtModelId.TabIndex = 4;
             // 
             // txtShoeSize
             // 
-            this.txtShoeSize.Location = new System.Drawing.Point(30, 180);
-            this.txtShoeSize.Name = "txtShoeSize";
-            this.txtShoeSize.Size = new System.Drawing.Size(200, 20);
-            this.txtShoeSize.TabIndex = 5;
-            this.txtShoeSize.PlaceholderText = "Shoe Size";
-
+            txtShoeSize.Location = new Point(63, 246);
+            txtShoeSize.Name = "txtShoeSize";
+            txtShoeSize.PlaceholderText = "Shoe Size";
+            txtShoeSize.Size = new Size(225, 27);
+            txtShoeSize.TabIndex = 5;
             // 
             // txtQuantity
             // 
-            this.txtQuantity.Location = new System.Drawing.Point(30, 210);
-            this.txtQuantity.Name = "txtQuantity";
-            this.txtQuantity.Size = new System.Drawing.Size(200, 20);
-            this.txtQuantity.TabIndex = 6;
-            this.txtQuantity.PlaceholderText = "Quantity";
-
+            txtQuantity.Location = new Point(63, 276);
+            txtQuantity.Name = "txtQuantity";
+            txtQuantity.PlaceholderText = "Quantity";
+            txtQuantity.Size = new Size(225, 27);
+            txtQuantity.TabIndex = 6;
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(30, 240);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(200, 30);
-            this.btnSubmit.TabIndex = 7;
-            this.btnSubmit.Text = "Submit";
-            this.btnSubmit.UseVisualStyleBackColor = true;
-            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-
+            btnSubmit.BackColor = Color.DodgerBlue;
+            btnSubmit.Location = new Point(63, 306);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(225, 37);
+            btnSubmit.TabIndex = 7;
+            btnSubmit.Text = "Submit";
+            btnSubmit.UseVisualStyleBackColor = false;
+            btnSubmit.Click += btnSubmit_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(44, 33);
+            label1.Name = "label1";
+            label1.Size = new Size(279, 35);
+            label1.TabIndex = 8;
+            label1.Text = "Create a Purchase";
             // 
             // CreatePurchaseForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 291);
-            this.Controls.Add(this.txtClientId);
-            this.Controls.Add(this.txtOrderDate);
-            this.Controls.Add(this.rdoUseCurrentDate);
-            this.Controls.Add(this.rdoEnterDate);
-            this.Controls.Add(this.txtModelId);
-            this.Controls.Add(this.txtShoeSize);
-            this.Controls.Add(this.txtQuantity);
-            this.Controls.Add(this.btnSubmit);
-            this.Name = "CreatePurchaseForm";
-            this.Text = "Create Purchase";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            BackgroundImage = Properties.Resources.bright_background_image;
+            ClientSize = new Size(363, 401);
+            Controls.Add(label1);
+            Controls.Add(txtClientId);
+            Controls.Add(txtOrderDate);
+            Controls.Add(rdoUseCurrentDate);
+            Controls.Add(rdoEnterDate);
+            Controls.Add(txtModelId);
+            Controls.Add(txtShoeSize);
+            Controls.Add(txtQuantity);
+            Controls.Add(btnSubmit);
+            Name = "CreatePurchaseForm";
+            Text = "Create Purchase";
+            Load += CreatePurchaseForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
@@ -227,5 +244,11 @@ namespace GraphicalUserInterface
         private TextBox txtShoeSize;
         private TextBox txtQuantity;
         private Button btnSubmit;
+
+        private void CreatePurchaseForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+

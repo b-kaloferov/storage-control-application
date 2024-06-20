@@ -12,6 +12,7 @@ namespace GraphicalUserInterface
         private IClientService _clientService;
         private IModelService _modelService;
         private IOrderService _orderService;
+        private Label label1;
         private IShoeService _shoeService;
 
         public ManagePurchaseForm(IClientService clientService, IModelService modelService, IOrderService orderService, IShoeService shoeService)
@@ -37,40 +38,55 @@ namespace GraphicalUserInterface
 
         private void InitializeComponent()
         {
-            this.btnCreatePurchase = new System.Windows.Forms.Button();
-            this.btnCompletePurchase = new System.Windows.Forms.Button();
-
+            btnCreatePurchase = new Button();
+            btnCompletePurchase = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // btnCreatePurchase
             // 
-            this.btnCreatePurchase.Location = new System.Drawing.Point(30, 30);
-            this.btnCreatePurchase.Name = "btnCreatePurchase";
-            this.btnCreatePurchase.Size = new System.Drawing.Size(200, 50);
-            this.btnCreatePurchase.TabIndex = 0;
-            this.btnCreatePurchase.Text = "Create Purchase";
-            this.btnCreatePurchase.UseVisualStyleBackColor = true;
-            this.btnCreatePurchase.Click += new System.EventHandler(this.btnCreatePurchase_Click);
-
+            btnCreatePurchase.BackColor = Color.DodgerBlue;
+            btnCreatePurchase.Location = new Point(68, 98);
+            btnCreatePurchase.Name = "btnCreatePurchase";
+            btnCreatePurchase.Size = new Size(200, 50);
+            btnCreatePurchase.TabIndex = 0;
+            btnCreatePurchase.Text = "Create Purchase";
+            btnCreatePurchase.UseVisualStyleBackColor = false;
+            btnCreatePurchase.Click += btnCreatePurchase_Click;
             // 
             // btnCompletePurchase
             // 
-            this.btnCompletePurchase.Location = new System.Drawing.Point(30, 100);
-            this.btnCompletePurchase.Name = "btnCompletePurchase";
-            this.btnCompletePurchase.Size = new System.Drawing.Size(200, 50);
-            this.btnCompletePurchase.TabIndex = 1;
-            this.btnCompletePurchase.Text = "Complete Purchase";
-            this.btnCompletePurchase.UseVisualStyleBackColor = true;
-            this.btnCompletePurchase.Click += new System.EventHandler(this.btnCompletePurchase_Click);
-
+            btnCompletePurchase.BackColor = Color.DodgerBlue;
+            btnCompletePurchase.Location = new Point(68, 168);
+            btnCompletePurchase.Name = "btnCompletePurchase";
+            btnCompletePurchase.Size = new Size(200, 50);
+            btnCompletePurchase.TabIndex = 1;
+            btnCompletePurchase.Text = "Complete Purchase";
+            btnCompletePurchase.UseVisualStyleBackColor = false;
+            btnCompletePurchase.Click += btnCompletePurchase_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label1.Location = new Point(24, 35);
+            label1.Name = "label1";
+            label1.Size = new Size(296, 35);
+            label1.TabIndex = 2;
+            label1.Text = "Manage a Purchase";
             // 
             // ManagePurchaseForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 181);
-            this.Controls.Add(this.btnCompletePurchase);
-            this.Controls.Add(this.btnCreatePurchase);
-            this.Name = "ManagePurchaseForm";
-            this.Text = "Manage Purchase";
-            this.ResumeLayout(false);
+            BackgroundImage = Properties.Resources.bright_background_image;
+            ClientSize = new Size(341, 265);
+            Controls.Add(label1);
+            Controls.Add(btnCompletePurchase);
+            Controls.Add(btnCreatePurchase);
+            Name = "ManagePurchaseForm";
+            Text = "Manage Purchase";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private Button btnCreatePurchase;

@@ -34,77 +34,132 @@ namespace GraphicalUserInterface
 
         private void InitializeComponent()
         {
-            this.txtModelId = new TextBox();
-            this.txtBrand = new TextBox();
-            this.txtCode = new TextBox();
-            this.txtShoeType = new TextBox();
-            this.txtPrice = new TextBox();
-            this.txtGenderCategory = new TextBox();
-            this.txtDescription = new TextBox();
-            this.btnSearch = new Button();
-            this.btnUpdate = new Button();
-
+            txtModelId = new TextBox();
+            txtBrand = new TextBox();
+            txtCode = new TextBox();
+            txtShoeType = new TextBox();
+            txtPrice = new TextBox();
+            txtGenderCategory = new TextBox();
+            txtDescription = new TextBox();
+            btnSearch = new Button();
+            btnUpdate = new Button();
+            btnClose = new Button();
+            label3 = new Label();
+            SuspendLayout();
+            // 
             // txtModelId
-            this.txtModelId.Location = new System.Drawing.Point(120, 30);
-            this.txtModelId.Name = "txtModelId";
-            this.txtModelId.Size = new System.Drawing.Size(200, 22);
-
+            // 
+            txtModelId.Location = new Point(73, 123);
+            txtModelId.Name = "txtModelId";
+            txtModelId.PlaceholderText = "Enter Shoe Model Id";
+            txtModelId.Size = new Size(200, 27);
+            txtModelId.TabIndex = 0;
+            // 
             // txtBrand
-            this.txtBrand.Location = new System.Drawing.Point(120, 70);
-            this.txtBrand.Name = "txtBrand";
-            this.txtBrand.Size = new System.Drawing.Size(200, 22);
-
+            // 
+            txtBrand.Location = new Point(120, 189);
+            txtBrand.Name = "txtBrand";
+            txtBrand.Size = new Size(200, 27);
+            txtBrand.TabIndex = 1;
+            // 
             // txtCode
-            this.txtCode.Location = new System.Drawing.Point(120, 110);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(200, 22);
-
+            // 
+            txtCode.Location = new Point(120, 229);
+            txtCode.Name = "txtCode";
+            txtCode.Size = new Size(200, 27);
+            txtCode.TabIndex = 2;
+            // 
             // txtShoeType
-            this.txtShoeType.Location = new System.Drawing.Point(120, 150);
-            this.txtShoeType.Name = "txtShoeType";
-            this.txtShoeType.Size = new System.Drawing.Size(200, 22);
-
+            // 
+            txtShoeType.Location = new Point(120, 269);
+            txtShoeType.Name = "txtShoeType";
+            txtShoeType.Size = new Size(200, 27);
+            txtShoeType.TabIndex = 3;
+            // 
             // txtPrice
-            this.txtPrice.Location = new System.Drawing.Point(120, 190);
-            this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(200, 22);
-
+            // 
+            txtPrice.Location = new Point(120, 309);
+            txtPrice.Name = "txtPrice";
+            txtPrice.Size = new Size(200, 27);
+            txtPrice.TabIndex = 4;
+            // 
             // txtGenderCategory
-            this.txtGenderCategory.Location = new System.Drawing.Point(120, 230);
-            this.txtGenderCategory.Name = "txtGenderCategory";
-            this.txtGenderCategory.Size = new System.Drawing.Size(200, 22);
-
+            // 
+            txtGenderCategory.Location = new Point(120, 349);
+            txtGenderCategory.Name = "txtGenderCategory";
+            txtGenderCategory.Size = new Size(200, 27);
+            txtGenderCategory.TabIndex = 5;
+            // 
             // txtDescription
-            this.txtDescription.Location = new System.Drawing.Point(120, 270);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(200, 22);
-
+            // 
+            txtDescription.Location = new Point(120, 389);
+            txtDescription.Name = "txtDescription";
+            txtDescription.Size = new Size(200, 27);
+            txtDescription.TabIndex = 6;
+            // 
             // btnSearch
-            this.btnSearch.Location = new System.Drawing.Point(330, 30);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.Text = "Search";
-            this.btnSearch.Click += new EventHandler(this.btnSearch_Click);
-
+            // 
+            btnSearch.BackColor = Color.DodgerBlue;
+            btnSearch.Location = new Point(283, 123);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(94, 27);
+            btnSearch.TabIndex = 7;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = false;
+            btnSearch.Click += btnSearch_Click;
+            // 
             // btnUpdate
-            this.btnUpdate.Location = new System.Drawing.Point(120, 310);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.Click += new EventHandler(this.btnUpdate_Click);
-
+            // 
+            btnUpdate.BackColor = Color.DodgerBlue;
+            btnUpdate.Location = new Point(89, 444);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(77, 31);
+            btnUpdate.TabIndex = 8;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.DodgerBlue;
+            btnClose.Location = new Point(294, 445);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(94, 29);
+            btnClose.TabIndex = 9;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += this.btnClose_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            label3.Location = new Point(71, 46);
+            label3.Name = "label3";
+            label3.Size = new Size(317, 35);
+            label3.TabIndex = 10;
+            label3.Text = "Update a Shoe Model";
+            // 
             // UpdateShoeModelForm
-            this.ClientSize = new System.Drawing.Size(434, 361);
-            this.Controls.Add(this.txtModelId);
-            this.Controls.Add(this.txtBrand);
-            this.Controls.Add(this.txtCode);
-            this.Controls.Add(this.txtShoeType);
-            this.Controls.Add(this.txtPrice);
-            this.Controls.Add(this.txtGenderCategory);
-            this.Controls.Add(this.txtDescription);
-            this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.btnUpdate);
-            this.Text = "Update Shoe Model";
+            // 
+            BackgroundImage = Properties.Resources.bright_background_image;
+            ClientSize = new Size(431, 501);
+            Controls.Add(label3);
+            Controls.Add(btnClose);
+            Controls.Add(txtModelId);
+            Controls.Add(txtBrand);
+            Controls.Add(txtCode);
+            Controls.Add(txtShoeType);
+            Controls.Add(txtPrice);
+            Controls.Add(txtGenderCategory);
+            Controls.Add(txtDescription);
+            Controls.Add(btnSearch);
+            Controls.Add(btnUpdate);
+            Name = "UpdateShoeModelForm";
+            Text = "Update Shoe Model";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         private async void btnSearch_Click(object sender, EventArgs e)
@@ -171,5 +226,11 @@ namespace GraphicalUserInterface
                 MessageBox.Show("Invalid model ID.");
             }
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+       
     }
 }

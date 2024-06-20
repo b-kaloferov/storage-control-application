@@ -44,7 +44,7 @@ namespace GraphicalUserInterface
             // RemoveCustomerForm
             // 
             BackgroundImage = Properties.Resources.bright_background_image;
-            ClientSize = new Size(1060, 501);
+            ClientSize = new Size(506, 427);
             Controls.Add(btnRemove);
             Controls.Add(txtClientId);
             Name = "RemoveCustomerForm";
@@ -60,8 +60,13 @@ namespace GraphicalUserInterface
         {
             if (int.TryParse(txtClientId.Text, out int clientId))
             {
-                await _clientService.DeleteClientAsync(clientId);
-                MessageBox.Show("Customer removed successfully.");
+                var confirmation = MessageBox.Show("Are you sure you want to delete this client?", "Confirm Deletion", MessageBoxButtons.YesNo);
+                if (confirmation == DialogResult.Yes)
+                {
+                    await _clientService.DeleteClientAsync(clientId);
+                    MessageBox.Show("Customer removed successfully.");
+                    txtClientId.Text = string.Empty;
+                }
             }
             else
             {

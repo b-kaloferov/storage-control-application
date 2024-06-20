@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ServiceLayer;
 
 namespace GraphicalUserInterface
 {
-    public partial class UpdateShoeModel : Form
+    public partial class UpdateShoeModelForm : Form
     {
         private ModelService _modelService;
 

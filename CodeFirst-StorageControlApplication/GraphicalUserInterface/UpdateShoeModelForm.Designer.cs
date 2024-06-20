@@ -1,6 +1,6 @@
 ﻿namespace GraphicalUserInterface
 {
-    partial class UpdateShoeModel
+    partial class UpdateShoeModelForm
     {
         /// <summary>
         /// Required designer variable.

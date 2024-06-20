@@ -31,6 +31,7 @@ namespace GraphicalUserInterface
             // labelModelId
             // 
             labelModelId.AutoSize = true;
+            labelModelId.BackColor = Color.Transparent;
             labelModelId.Location = new Point(12, 15);
             labelModelId.Name = "labelModelId";
             labelModelId.Size = new Size(74, 20);
@@ -57,6 +58,7 @@ namespace GraphicalUserInterface
             // labelModelDetails
             // 
             labelModelDetails.AutoSize = true;
+            labelModelDetails.BackColor = Color.Transparent;
             labelModelDetails.Location = new Point(12, 50);
             labelModelDetails.Name = "labelModelDetails";
             labelModelDetails.Size = new Size(0, 20);
@@ -64,17 +66,17 @@ namespace GraphicalUserInterface
             // 
             // dataGridViewShoes
             // 
-            dataGridViewShoes.BackgroundColor = Color.White;
+            dataGridViewShoes.BackgroundColor = Color.WhiteSmoke;
             dataGridViewShoes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewShoes.Location = new Point(12, 120);
+            dataGridViewShoes.Location = new Point(20, 227);
             dataGridViewShoes.Name = "dataGridViewShoes";
             dataGridViewShoes.RowHeadersWidth = 51;
-            dataGridViewShoes.Size = new Size(776, 188);
+            dataGridViewShoes.Size = new Size(679, 188);
             dataGridViewShoes.TabIndex = 4;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(694, 314);
+            btnClose.Location = new Point(605, 453);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(94, 29);
             btnClose.TabIndex = 5;
@@ -82,19 +84,20 @@ namespace GraphicalUserInterface
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += ButtonClose_Click;
             // 
-            // ViewShoesOfModel
+            // ViewShoesOfModelForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.bright_background_image;
-            ClientSize = new Size(1069, 515);
+            ClientSize = new Size(711, 515);
             Controls.Add(btnClose);
             Controls.Add(dataGridViewShoes);
             Controls.Add(labelModelDetails);
             Controls.Add(buttonFind);
             Controls.Add(textBoxModelId);
             Controls.Add(labelModelId);
-            Name = "ViewShoesOfModel";
+            MaximizeBox = false;
+            Name = "ViewShoesOfModelForm";
             Text = "View Shoes of Model";
             Load += ViewShoesOfModelForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewShoes).EndInit();

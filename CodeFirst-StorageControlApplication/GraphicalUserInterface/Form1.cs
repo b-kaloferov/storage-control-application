@@ -7,11 +7,13 @@ namespace GraphicalUserInterface
 
         private readonly IModelService _modelService;
         private readonly IClientService _clientService;
+        private readonly IShoeService _shoeService;
 
-        public Form1(IModelService modelService, IClientService clientService)
+        public Form1(IModelService modelService, IClientService clientService, IShoeService shoeService)
         {
             _modelService = modelService;
             _clientService = clientService;
+            _shoeService = shoeService;
             InitializeComponent();
         }
         
@@ -49,7 +51,8 @@ namespace GraphicalUserInterface
         }
         private void button5_Click(object sender, EventArgs e)
         {
-
+            AddOrDiscardShoesForm addOrDiscardShoesForm = new AddOrDiscardShoesForm(_modelService, _shoeService);
+            addOrDiscardShoesForm.ShowDialog();
         }
         private void button6_Click(object sender, EventArgs e)
         {

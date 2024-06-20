@@ -825,6 +825,7 @@ namespace ConsoleUserInterface
                 Console.ResetColor(); // sets the color to white
             }
 
+
             Console.WriteLine("╔═════════════════════════════════════════════╗");
             Console.WriteLine($"║ {message.PadRight(43)} ║");
             Console.WriteLine("╚═════════════════════════════════════════════╝");

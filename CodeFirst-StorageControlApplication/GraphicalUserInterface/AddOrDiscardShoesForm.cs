@@ -21,41 +21,41 @@ namespace GraphicalUserInterface
 
         private void InitializeComponent()
         {
-            this.btnAddShoes = new System.Windows.Forms.Button();
-            this.btnDiscardShoes = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-
+            btnAddShoes = new Button();
+            btnDiscardShoes = new Button();
+            SuspendLayout();
             // 
             // btnAddShoes
             // 
-            this.btnAddShoes.Location = new System.Drawing.Point(50, 50);
-            this.btnAddShoes.Name = "btnAddShoes";
-            this.btnAddShoes.Size = new System.Drawing.Size(150, 50);
-            this.btnAddShoes.TabIndex = 0;
-            this.btnAddShoes.Text = "Add Shoes";
-            this.btnAddShoes.UseVisualStyleBackColor = true;
-            this.btnAddShoes.Click += new System.EventHandler(this.btnAddShoes_Click);
-
+            btnAddShoes.BackColor = Color.DodgerBlue;
+            btnAddShoes.Location = new Point(64, 51);
+            btnAddShoes.Name = "btnAddShoes";
+            btnAddShoes.Size = new Size(150, 50);
+            btnAddShoes.TabIndex = 0;
+            btnAddShoes.Text = "Add Shoes";
+            btnAddShoes.UseVisualStyleBackColor = false;
+            btnAddShoes.Click += btnAddShoes_Click;
             // 
             // btnDiscardShoes
             // 
-            this.btnDiscardShoes.Location = new System.Drawing.Point(50, 150);
-            this.btnDiscardShoes.Name = "btnDiscardShoes";
-            this.btnDiscardShoes.Size = new System.Drawing.Size(150, 50);
-            this.btnDiscardShoes.TabIndex = 1;
-            this.btnDiscardShoes.Text = "Discard Shoes";
-            this.btnDiscardShoes.UseVisualStyleBackColor = true;
-            this.btnDiscardShoes.Click += new System.EventHandler(this.btnDiscardShoes_Click);
-
+            btnDiscardShoes.BackColor = Color.DodgerBlue;
+            btnDiscardShoes.Location = new Point(64, 151);
+            btnDiscardShoes.Name = "btnDiscardShoes";
+            btnDiscardShoes.Size = new Size(150, 50);
+            btnDiscardShoes.TabIndex = 1;
+            btnDiscardShoes.Text = "Discard Shoes";
+            btnDiscardShoes.UseVisualStyleBackColor = false;
+            btnDiscardShoes.Click += btnDiscardShoes_Click;
             // 
             // AddOrDiscardShoesForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.btnAddShoes);
-            this.Controls.Add(this.btnDiscardShoes);
-            this.Name = "AddOrDiscardShoesForm";
-            this.Text = "Add or Discard Shoes";
-            this.ResumeLayout(false);
+            BackgroundImage = Properties.Resources.bright_background_image;
+            ClientSize = new Size(284, 261);
+            Controls.Add(btnAddShoes);
+            Controls.Add(btnDiscardShoes);
+            Name = "AddOrDiscardShoesForm";
+            Text = "Add or Discard Shoes";
+            ResumeLayout(false);
         }
 
         private void btnAddShoes_Click(object sender, EventArgs e)
